@@ -559,7 +559,9 @@
             "id": "b10c0000-0000-4000-8000-000000000004",
             "eyebrow": "Projects",
             "heading": "Case studies from production",
-            "intro": "Seven systems I designed and shipped — each case study covers the problem, the architecture, and what it changed."
+            "intro": "Seven systems I designed and shipped — each case study covers the problem, the architecture, and what it changed.",
+            "more_heading": "…and more",
+            "more_text": "Tour booking and conference registration systems, an expense-forms platform, teleprompter automation for the production team, Google Apps Script workflows, and a growing set of AI/MCP integrations. Happy to walk through any of them."
           }
         },
         {

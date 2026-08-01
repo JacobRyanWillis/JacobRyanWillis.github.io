@@ -133,7 +133,14 @@ const collections = [
   {
     collection: 'block_projects',
     meta: { hidden: true, group: 'pages', sort: 5, icon: 'work', note: 'Projects grid block — renders the Projects collection', display_template: '{{heading}}' },
-    fields: [uuidPk, str('eyebrow', { width: 'half' }), str('heading', { width: 'half', required: true }), text('intro')],
+    fields: [
+      uuidPk,
+      str('eyebrow', { width: 'half' }),
+      str('heading', { width: 'half', required: true }),
+      text('intro'),
+      str('more_heading', { width: 'half', note: 'Optional trailing card heading (e.g. "…and more") — card hidden when empty.' }),
+      text('more_text', { note: 'Body of the trailing "…and more" card.' }),
+    ],
   },
   {
     collection: 'block_skills',
