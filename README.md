@@ -4,13 +4,16 @@ My portfolio site — and my public code sample. Most of my production work live
 employer's private org repos, so this repo is intentionally built the way I build at work:
 the same stack, the same page-block architecture, the same attention to SEO and performance.
 
-**Live site:** [jacobryanwillis.github.io](https://jacobryanwillis.github.io)
+**Live site:** [jacobryanwillis.github.io](https://jacobryanwillis.github.io) — try the
+**X-ray button** (scan icon in the header): it outlines every section with the Directus
+collection it's rendered from.
 
 ## Stack
 
 - **[Nuxt 4](https://nuxt.com)** + **Vue 3** + **TypeScript** — statically generated (`nuxt generate`)
 - **[Nuxt UI v4](https://ui.nuxt.com)** + **Tailwind CSS v4** — custom accent palette, dark mode
 - **[Directus 11](https://directus.io)** (Docker) — local authoring environment with visual editing
+- **[@nuxt/fonts](https://fonts.nuxt.com)** — Bricolage Grotesque + JetBrains Mono, self-hosted at build time
 - **GitHub Pages** — deployed via GitHub Actions on every push to `main`
 
 ## Architecture
@@ -49,6 +52,24 @@ Other notes:
   URLs, `robots.txt`, and a sitemap generated from the same content that builds the pages.
 - **Typed content.** One [`Snapshot`](app/types/content.ts) shape serves both modes, so
   components never care where content came from.
+
+## Design system
+
+- **Block X-ray** ([`useXray.ts`](app/composables/useXray.ts)) — a site-wide toggle that
+  outlines every page block with a chip naming its Directus collection and sort order.
+  The architecture above isn't just described — it's inspectable from the page itself.
+- **Scroll reveal** ([`reveal.ts`](app/plugins/reveal.ts)) — a `v-reveal` directive
+  (IntersectionObserver, stagger support) built as progressive enhancement: content is
+  fully visible without JavaScript and for `prefers-reduced-motion` users.
+- **Per-block backgrounds** ([`SectionShell.vue`](app/components/SectionShell.vue)) —
+  every section block carries `bg_color` / `bg_image` / `bg_opacity` fields in Directus.
+  The dark presets include `dark` in their class value, so Nuxt UI's CSS-variable tokens
+  flip automatically and a dark band never needs per-field text-color plumbing.
+- **Typography** — display headings in Bricolage Grotesque, engineering accents (section
+  eyebrows, stat lines, the footer prompt) in JetBrains Mono, body in the system stack.
+- **Cover art** — each case study's card illustration is generated to a shared style spec
+  (navy/accent-blue/amber schematics), stored in Directus like every other asset, and
+  synced into the repo by `cms:sync`.
 
 ## Development
 
