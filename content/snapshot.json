@@ -9,7 +9,7 @@
     "github": "https://github.com/JacobRyanWillis",
     "linkedin": "https://www.linkedin.com/in/jacobryanwillis",
     "resume": "/files/Jacob_Willis_Resume_2026.pdf",
-    "headshot": null,
+    "headshot": "/images/534c8f49-2e5e-48a3-96b4-f1ad20ea8c8e.png",
     "url": "https://jacobryanwillis.github.io",
     "summary": "Full-stack developer specializing in Vue/Nuxt, Node.js, headless CMS architecture, and AI-powered internal tooling, with nearly three years designing, shipping, and owning production systems at scale. Comfortable owning projects end-to-end — from database design and API architecture to responsive frontends and CMS integrations.",
     "private_work_note": "Most of my production work lives in my employer's private organization repos, so my public GitHub undersells what I build day to day. This site — and its repo — is my public code sample: it runs on the same architecture I build professionally, right down to the Directus page-block system rendering this page. I'm happy to walk through architecture decisions, code samples, or demos from any of these projects in an interview."
