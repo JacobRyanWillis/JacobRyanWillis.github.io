@@ -431,6 +431,55 @@
       "image": null,
       "demo_video": null,
       "sort": 6
+    },
+    {
+      "id": "0f000000-0000-4000-8000-000000000007",
+      "slug": "commenting-system",
+      "title": "Commenting System — Migration & Moderation UX",
+      "subtitle": "Legacy comment migration plus a purpose-built reply experience for authors",
+      "summary": "Migrated two legacy commenting systems into the Directus platform and rebuilt moderation end-to-end — a custom reply interface, publish-and-notify flows, and help-desk-synced spam banning.",
+      "featured": "legacy migration · custom reply UI · anti-spam sync",
+      "problem": "Comments on Creation.com ran on a legacy system that was never fully fleshed out. Reader comments were only loosely hooked into the new site, and authors replied to commenters through a fragile general-purpose popup stack that broke under platform upgrades, silently dropped empty replies, and previewed commenter-submitted HTML unsafely. Moderation roles existed on paper but couldn't actually manage comments, and spam handling was entirely manual.",
+      "architecture": [
+        {
+          "text": "Migrated comments from two legacy platforms into a single Directus comment collection serving the Nuxt frontend, filtering purged content during import so removed comments never resurfaced."
+        },
+        {
+          "text": "Designed and shipped a purpose-built comment-reply Directus interface (its own extension package): from the notification e-mail an author lands on the comment and gets a Compose Reply dialog with rich text, reason selection, and inline confirmation — structured so the stacked-dialog focus-trap failure that plagued the old popup cannot recur by construction."
+        },
+        {
+          "text": "Reply actions trigger Directus flows with explicit payloads — publish-with-response and private e-mail — and reply e-mails preserve the author’s formatting."
+        },
+        {
+          "text": "Hardened by default: commenter HTML renders as inert plain text in previews (no XSS path), and an empty-reply guard stops the flow from dying silently."
+        },
+        {
+          "text": "Fixed the Comment Manager role so moderation permissions actually work, and added bidirectional ban sync between the comment system and the help desk’s spam rules."
+        }
+      ],
+      "stack": [
+        "Directus",
+        "Directus Extensions SDK",
+        "Vue 3",
+        "TypeScript",
+        "Nuxt 3",
+        "Directus Flows"
+      ],
+      "outcomes": [
+        {
+          "text": "Authors and editors reply to commenters from one friendly dialog — publish with a response, or answer privately by e-mail — instead of wrestling a breaking popup."
+        },
+        {
+          "text": "Years of legacy comments consolidated onto the new platform, with purged content filtered out during migration."
+        },
+        {
+          "text": "Moderation is safer and faster: inert previews, working role permissions, and spam bans that sync both ways with the help desk."
+        }
+      ],
+      "callout": null,
+      "image": null,
+      "demo_video": null,
+      "sort": 7
     }
   ],
   "pages": [
@@ -510,7 +559,7 @@
             "id": "b10c0000-0000-4000-8000-000000000004",
             "eyebrow": "Projects",
             "heading": "Case studies from production",
-            "intro": "Six systems I designed and shipped — each case study covers the problem, the architecture, and what it changed."
+            "intro": "Seven systems I designed and shipped — each case study covers the problem, the architecture, and what it changed."
           }
         },
         {
