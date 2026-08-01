@@ -313,7 +313,7 @@ async function ensurePublicReadAccess() {
 
 async function configureVisualEditor() {
   try {
-    await api('/settings', { method: 'PATCH', body: { visual_editor_urls: ['http://localhost:3000'] } })
+    await api('/settings', { method: 'PATCH', body: { visual_editor_urls: [{ url: 'http://localhost:3000' }] } })
     console.log('  visual editor URL set to http://localhost:3000')
   } catch (error) {
     console.warn(`  ! could not set visual editor URL: ${error.message}`)
