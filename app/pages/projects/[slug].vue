@@ -126,7 +126,7 @@ enable()
             class="flex gap-3 leading-relaxed text-toned"
           >
             <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
-            <span>{{ point }}</span>
+            <span>{{ point.text }}</span>
           </li>
         </ul>
       </section>
@@ -146,7 +146,7 @@ enable()
             class="flex gap-3 leading-relaxed text-toned"
           >
             <UIcon name="i-lucide-check" class="mt-1 size-4 shrink-0 text-primary" />
-            <span>{{ point }}</span>
+            <span>{{ point.text }}</span>
           </li>
         </ul>
       </section>

@@ -153,11 +153,21 @@
       "featured": "M2A architecture · visual editing · powers this site",
       "problem": "Every layout change on Creation.com used to need a developer. The editorial team wanted to compose, reorder, and publish rich pages — sections, galleries, FAQs, testimonials, products, video series — without touching code, and without the design system fragmenting into one-off page builds.",
       "architecture": [
-        "A `page` collection and a `page_blocks` many-to-any junction (collection / item / sort) let one page own an ordered mix of block types, where each block type is its own Directus collection with exactly the fields it needs.",
-        "A dynamic renderer on the Nuxt side maps block types to Vue components, so a page is data all the way down — adding a new block type means one new collection and one new component.",
-        "Directus visual editing overlays click-to-edit controls on the live site, so editors adjust blocks in place — the 'visual editor'.",
-        "The block library grew to cover page sections, galleries, FAQs, testimonials, people, products, and video series, all reusable across the site.",
-        "This portfolio implements the same architecture in miniature: the homepage is a `page` row composed of `page_blocks` rows, authored in a local Dockerized Directus and snapshotted into the repo at build time."
+        {
+          "text": "A `page` collection and a `page_blocks` many-to-any junction (collection / item / sort) let one page own an ordered mix of block types, where each block type is its own Directus collection with exactly the fields it needs."
+        },
+        {
+          "text": "A dynamic renderer on the Nuxt side maps block types to Vue components, so a page is data all the way down — adding a new block type means one new collection and one new component."
+        },
+        {
+          "text": "Directus visual editing overlays click-to-edit controls on the live site, so editors adjust blocks in place — the 'visual editor'."
+        },
+        {
+          "text": "The block library grew to cover page sections, galleries, FAQs, testimonials, people, products, and video series, all reusable across the site."
+        },
+        {
+          "text": "This portfolio implements the same architecture in miniature: the homepage is a `page` row composed of `page_blocks` rows, authored in a local Dockerized Directus and snapshotted into the repo at build time."
+        }
       ],
       "stack": [
         "Directus",
@@ -168,10 +178,18 @@
         "Directus Visual Editing"
       ],
       "outcomes": [
-        "The editorial team composes and publishes complete pages with zero developer involvement.",
-        "New landing pages ship in minutes instead of going through a development cycle.",
-        "Page structure became data with a single source of truth, replacing hardcoded layouts.",
-        "The pattern was designed once and now renders everything from campaign pages to this portfolio."
+        {
+          "text": "The editorial team composes and publishes complete pages with zero developer involvement."
+        },
+        {
+          "text": "New landing pages ship in minutes instead of going through a development cycle."
+        },
+        {
+          "text": "Page structure became data with a single source of truth, replacing hardcoded layouts."
+        },
+        {
+          "text": "The pattern was designed once and now renders everything from campaign pages to this portfolio."
+        }
       ],
       "callout": "You're looking at it: this site's homepage is rendered by a simplified version of this exact system — a Directus `page` row composed of `page_blocks`, with visual editing in dev. The repo shows the whole pattern end to end.",
       "image": null,
@@ -186,11 +204,21 @@
       "featured": "7 stores · 5 channels · nightly syncs",
       "problem": "Leadership across 7 international offices had no single view of performance. Sales lived in 7 regional PrestaShop stores (each in its own currency), email metrics in GetResponse across 17 mailing lists, and social reach across YouTube, Facebook, and Instagram. Reporting meant manually pulling numbers from five different admin panels.",
       "architecture": [
-        "Designed a pluggable adapter system: each channel (PrestaShop, GetResponse, YouTube, Facebook, Instagram) implements a common sync interface, so adding a new source is a new adapter — not a rewrite.",
-        "Nightly automated syncs plus on-demand backfills, with per-store currency handling for the 7 international PrestaShop instances.",
-        "Normalized metrics into Directus collections that power dashboard queries.",
-        "Vue 3 + ApexCharts dashboards with cross-channel KPIs, period-over-period deltas, and per-channel deep dives.",
-        "Office-scoped row-level access policies so each office sees exactly its own data — leadership sees the whole picture."
+        {
+          "text": "Designed a pluggable adapter system: each channel (PrestaShop, GetResponse, YouTube, Facebook, Instagram) implements a common sync interface, so adding a new source is a new adapter — not a rewrite."
+        },
+        {
+          "text": "Nightly automated syncs plus on-demand backfills, with per-store currency handling for the 7 international PrestaShop instances."
+        },
+        {
+          "text": "Normalized metrics into Directus collections that power dashboard queries."
+        },
+        {
+          "text": "Vue 3 + ApexCharts dashboards with cross-channel KPIs, period-over-period deltas, and per-channel deep dives."
+        },
+        {
+          "text": "Office-scoped row-level access policies so each office sees exactly its own data — leadership sees the whole picture."
+        }
       ],
       "stack": [
         "Vue 3",
@@ -203,9 +231,15 @@
         "Meta Graph API"
       ],
       "outcomes": [
-        "One permission-scoped dashboard replaced five separate admin panels for reporting.",
-        "Leadership across 7 offices reviews unified, always-current KPIs instead of hand-built spreadsheets.",
-        "New channels can be onboarded by writing a single adapter against the sync interface."
+        {
+          "text": "One permission-scoped dashboard replaced five separate admin panels for reporting."
+        },
+        {
+          "text": "Leadership across 7 offices reviews unified, always-current KPIs instead of hand-built spreadsheets."
+        },
+        {
+          "text": "New channels can be onboarded by writing a single adapter against the sync interface."
+        }
       ],
       "callout": null,
       "image": null,
@@ -220,10 +254,18 @@
       "featured": "26 collections · 7 offices · sole system of record",
       "problem": "Customer data was split across a legacy system and newer tools, kept in sync by fragile dual writes. There was no single source of truth for who a contact was, what they subscribed to, or what digital content they could access.",
       "architecture": [
-        "Designed a 26-collection Directus schema covering contacts, subscriber lists, and digital-content access, built in collaboration with a senior developer.",
-        "Modeled office-level data ownership with row-level access policies across 7 international offices.",
-        "Migrated off the legacy dual-write system so the CRM became the sole system of record.",
-        "Integrated with the email platform (GetResponse list sync, batch uploads, bulk unsubscribe) via custom Directus extensions."
+        {
+          "text": "Designed a 26-collection Directus schema covering contacts, subscriber lists, and digital-content access, built in collaboration with a senior developer."
+        },
+        {
+          "text": "Modeled office-level data ownership with row-level access policies across 7 international offices."
+        },
+        {
+          "text": "Migrated off the legacy dual-write system so the CRM became the sole system of record."
+        },
+        {
+          "text": "Integrated with the email platform (GetResponse list sync, batch uploads, bulk unsubscribe) via custom Directus extensions."
+        }
       ],
       "stack": [
         "Directus",
@@ -233,9 +275,15 @@
         "GetResponse API"
       ],
       "outcomes": [
-        "Eliminated dual-write drift: one system of record for contacts, subscriptions, and content access.",
-        "Non-technical staff in every office manage customer data through Directus with scoped permissions.",
-        "Became the foundation the analytics hub and email platform are built on."
+        {
+          "text": "Eliminated dual-write drift: one system of record for contacts, subscriptions, and content access."
+        },
+        {
+          "text": "Non-technical staff in every office manage customer data through Directus with scoped permissions."
+        },
+        {
+          "text": "Became the foundation the analytics hub and email platform are built on."
+        }
       ],
       "callout": null,
       "image": null,
@@ -250,10 +298,18 @@
       "featured": "Millions of monthly visitors · zero SEO regression",
       "problem": "Creation.com ran on a legacy stack that made content changes slow and developer-dependent, and its architecture limited performance. The migration had to happen without losing search rankings or uptime for a site serving millions of monthly visitors.",
       "architecture": [
-        "Rebuilt the site on Nuxt 3 with Directus as a fully headless CMS.",
-        "Powered content pages with the page-block composable content engine (its own case study), so the editorial team composes and publishes pages without developer involvement.",
-        "Optimized page-load performance with SSR, asset optimization, and Cloudflare-backed delivery.",
-        "Managed the migration with redirect mapping and metadata parity to preserve SEO rankings and uptime continuity."
+        {
+          "text": "Rebuilt the site on Nuxt 3 with Directus as a fully headless CMS."
+        },
+        {
+          "text": "Powered content pages with the page-block composable content engine (its own case study), so the editorial team composes and publishes pages without developer involvement."
+        },
+        {
+          "text": "Optimized page-load performance with SSR, asset optimization, and Cloudflare-backed delivery."
+        },
+        {
+          "text": "Managed the migration with redirect mapping and metadata parity to preserve SEO rankings and uptime continuity."
+        }
       ],
       "stack": [
         "Nuxt 3",
@@ -264,9 +320,15 @@
         "Cloudflare"
       ],
       "outcomes": [
-        "Improved page-load performance on a fully headless architecture.",
-        "Editorial team builds and publishes landing pages independently — no developer bottleneck.",
-        "SEO rankings and uptime held steady through the entire migration."
+        {
+          "text": "Improved page-load performance on a fully headless architecture."
+        },
+        {
+          "text": "Editorial team builds and publishes landing pages independently — no developer bottleneck."
+        },
+        {
+          "text": "SEO rankings and uptime held steady through the entire migration."
+        }
       ],
       "callout": null,
       "image": null,
@@ -281,10 +343,18 @@
       "featured": "100K+ daily subscribers · 17 mailing lists",
       "problem": "The organization needed to reliably reach 100K+ daily subscribers with both transactional and marketing email — with personalized content, manageable templates, and subscriber lists that stay in sync with the CRM.",
       "architecture": [
-        "Nuxt frontend forms feeding Directus backend workflows for signups, preferences, and unsubscribes.",
-        "MJML templating compiled to responsive email HTML, with Liquid.js for dynamic per-recipient personalization.",
-        "GetResponse integration managing 17 mailing lists, send schedules, and delivery logs.",
-        "Directus workflows as the operational layer: staff manage lists, schedules, and content without touching code."
+        {
+          "text": "Nuxt frontend forms feeding Directus backend workflows for signups, preferences, and unsubscribes."
+        },
+        {
+          "text": "MJML templating compiled to responsive email HTML, with Liquid.js for dynamic per-recipient personalization."
+        },
+        {
+          "text": "GetResponse integration managing 17 mailing lists, send schedules, and delivery logs."
+        },
+        {
+          "text": "Directus workflows as the operational layer: staff manage lists, schedules, and content without touching code."
+        }
       ],
       "stack": [
         "Nuxt",
@@ -295,9 +365,15 @@
         "Liquid.js"
       ],
       "outcomes": [
-        "Supports 100K+ daily sends across transactional and marketing email.",
-        "Template changes are compiled MJML — consistent rendering across email clients.",
-        "Subscriber lists stay consistent with the CRM system of record."
+        {
+          "text": "Supports 100K+ daily sends across transactional and marketing email."
+        },
+        {
+          "text": "Template changes are compiled MJML — consistent rendering across email clients."
+        },
+        {
+          "text": "Subscriber lists stay consistent with the CRM system of record."
+        }
       ],
       "callout": null,
       "image": null,
@@ -312,11 +388,21 @@
       "featured": "AI OCR · human-in-the-loop review · one-click export",
       "problem": "Returning speakers submitted stacks of paper travel receipts that staff transcribed into spreadsheets by hand — slow, error-prone, and entirely manual.",
       "architecture": [
-        "Upload flow where speakers submit trip receipts from any device.",
-        "AI OCR pipeline extracts line-item data (vendor, date, amounts, categories) from receipt images.",
-        "Human-in-the-loop review UI where staff verify and correct extracted data before it goes anywhere.",
-        "One-click export to Excel or directly into the Directus contacts database.",
-        "The same AI-tooling pattern (extract → review → export) was reused to accelerate processes in other departments."
+        {
+          "text": "Upload flow where speakers submit trip receipts from any device."
+        },
+        {
+          "text": "AI OCR pipeline extracts line-item data (vendor, date, amounts, categories) from receipt images."
+        },
+        {
+          "text": "Human-in-the-loop review UI where staff verify and correct extracted data before it goes anywhere."
+        },
+        {
+          "text": "One-click export to Excel or directly into the Directus contacts database."
+        },
+        {
+          "text": "The same AI-tooling pattern (extract → review → export) was reused to accelerate processes in other departments."
+        }
       ],
       "stack": [
         "Vue 3",
@@ -326,9 +412,15 @@
         "Excel export"
       ],
       "outcomes": [
-        "Replaced fully manual expense transcription with an automated, reviewable pipeline.",
-        "Staff time shifted from data entry to quick verification.",
-        "Established a reusable AI-tooling pattern adopted by other departments."
+        {
+          "text": "Replaced fully manual expense transcription with an automated, reviewable pipeline."
+        },
+        {
+          "text": "Staff time shifted from data entry to quick verification."
+        },
+        {
+          "text": "Established a reusable AI-tooling pattern adopted by other departments."
+        }
       ],
       "callout": null,
       "image": null,

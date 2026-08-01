@@ -20,7 +20,23 @@ const BLUE = '#3399FF'
 const uuidPk = { field: 'id', type: 'uuid', meta: { special: ['uuid'], readonly: true, hidden: true }, schema: { is_primary_key: true } }
 const str = (field, meta = {}) => ({ field, type: 'string', meta: { interface: 'input', options: { trim: true }, ...meta }, schema: {} })
 const text = (field, meta = {}) => ({ field, type: 'text', meta: { interface: 'input-multiline', ...meta }, schema: {} })
-const json = (field, meta = {}) => ({ field, type: 'json', meta: { special: ['cast-json'], interface: 'list', ...meta }, schema: {} })
+// String arrays shown as chips (tech stacks, skill lists)
+const tags = (field, meta = {}) => ({ field, type: 'json', meta: { special: ['cast-json'], interface: 'tags', display: 'labels', ...meta }, schema: {} })
+// Repeater of { text } rows — for lists of sentences (architecture, outcomes)
+const textList = (field, meta = {}) => ({
+  field,
+  type: 'json',
+  meta: {
+    special: ['cast-json'],
+    interface: 'list',
+    options: {
+      template: '{{ text }}',
+      fields: [{ field: 'text', name: 'text', type: 'text', meta: { field: 'text', type: 'text', interface: 'input-multiline', width: 'full', required: true } }],
+    },
+    ...meta,
+  },
+  schema: {},
+})
 const int = (field, meta = { hidden: true }) => ({ field, type: 'integer', meta, schema: {} })
 const tabGroup = (field, sort) => ({ field, type: 'alias', meta: { special: ['alias', 'group', 'no-data'], interface: 'group-raw', group: 'tabs', sort }, schema: null })
 
@@ -103,7 +119,11 @@ const collections = [
   {
     collection: 'block_metrics',
     meta: { hidden: true, group: 'pages', sort: 3, icon: 'monitoring', note: 'Metrics band block — renders the Metrics collection', display_template: 'Metrics band' },
-    fields: [uuidPk, str('eyebrow', { width: 'half' }), str('heading', { width: 'half' })],
+    fields: [
+      uuidPk,
+      str('eyebrow', { width: 'half', note: 'Optional — the band renders without a header when empty.' }),
+      str('heading', { width: 'half', note: 'Optional heading shown above the metrics band.' }),
+    ],
   },
   {
     collection: 'block_about',
@@ -146,9 +166,9 @@ const collections = [
       str('subtitle', { sort: 4 }),
       text('summary', { sort: 5, note: 'Card summary shown in the projects grid.' }),
       text('problem', { sort: 6 }),
-      json('architecture', { sort: 7 }),
-      json('outcomes', { sort: 8 }),
-      json('stack', { sort: 9, note: 'Tech shown as badges.' }),
+      textList('architecture', { sort: 7, note: 'Bullet points for the Architecture section.' }),
+      textList('outcomes', { sort: 8, note: 'Bullet points for the Outcome section.' }),
+      tags('stack', { sort: 9, note: 'Tech shown as badges — press Enter after each entry.' }),
       text('callout', { sort: 10, note: 'Optional highlight box on the case study page.' }),
       { field: 'image', type: 'uuid', meta: { interface: 'file-image', special: ['file'], sort: 11, note: 'Optional screenshot — synced into the repo by cms:sync.' }, schema: {} },
       int('sort'),
@@ -162,7 +182,7 @@ const collections = [
   {
     collection: 'skill_groups',
     meta: { icon: 'category', color: BLUE, sort: 4, note: 'Grouped skills for the skills section', sort_field: 'sort', display_template: '{{title}}' },
-    fields: [uuidPk, str('title', { required: true }), json('items'), int('sort')],
+    fields: [uuidPk, str('title', { required: true }), tags('items', { note: 'Skills shown as badges — press Enter after each entry.' }), int('sort')],
   },
 
   // ── Setup ──────────────────────────────────────────────────────────────

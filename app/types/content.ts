@@ -36,9 +36,9 @@ export interface Project {
   summary: string
   featured: string | null
   problem: string
-  architecture: string[]
+  architecture: { text: string }[]
   stack: string[]
-  outcomes: string[]
+  outcomes: { text: string }[]
   callout: string | null
   image: string | null
   sort: number
