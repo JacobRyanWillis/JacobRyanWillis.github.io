@@ -16,7 +16,7 @@ const videoId = computed(() => {
     class="relative aspect-video w-full overflow-hidden rounded-xl border border-default bg-slate-950"
   >
     <iframe
-      :src="`https://www.youtube-nocookie.com/embed/${videoId}`"
+      :src="`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&iv_load_policy=3`"
       :title="title ?? 'YouTube video'"
       class="absolute inset-0 h-full w-full"
       loading="lazy"
