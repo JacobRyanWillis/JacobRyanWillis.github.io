@@ -78,6 +78,34 @@ const linksField = (group) => ({
   schema: {},
 })
 
+// The background styling trio shared by every section-level block — same
+// options as block_section's Styling group, so the whole page has one system.
+const BG_CHOICES = choices(
+  ['Default', ''],
+  ['Muted', 'bg-elevated/50'],
+  ['Accent tint', 'bg-accent-100/60 dark:bg-accent-950/40'],
+  ['Deep dark', 'dark bg-slate-950'],
+  ['Accent gradient', 'dark bg-linear-to-br from-accent-950 to-slate-950'],
+)
+const stylingFields = (groupSort) => [
+  detailGroup('styling', groupSort, 'palette', 'Background image and color options'),
+  { field: 'bg_image', type: 'uuid', meta: { interface: 'file-image', special: ['file'], group: 'styling', sort: 1, note: 'Background image for this section — synced by cms:sync.' }, schema: {} },
+  {
+    field: 'bg_color',
+    type: 'string',
+    meta: {
+      interface: 'select-dropdown',
+      group: 'styling',
+      sort: 2,
+      width: 'half',
+      note: 'Section background. "Deep dark" and "Accent gradient" flip the text to light automatically.',
+      options: { choices: BG_CHOICES },
+    },
+    schema: { default_value: '' },
+  },
+  { field: 'bg_opacity', type: 'integer', meta: { interface: 'slider', group: 'styling', sort: 3, width: 'half', options: { minValue: 0, maxValue: 100, stepInterval: 5, alwaysShowValue: true }, note: 'Background image opacity (%).' }, schema: { default_value: 25 } },
+]
+
 const collections = [
   // ── Folders ────────────────────────────────────────────────────────────
   { collection: 'Setup', meta: { icon: 'settings', color: '#A2B5CD', sort: 5, collapse: 'open' }, schema: null },
@@ -131,7 +159,7 @@ const collections = [
   {
     collection: 'block_about',
     meta: { hidden: true, group: 'pages', sort: 4, icon: 'person', note: 'About block', display_template: '{{heading}}' },
-    fields: [uuidPk, str('eyebrow', { width: 'half' }), str('heading', { width: 'half', required: true }), text('body', { note: 'Separate paragraphs with a blank line.' })],
+    fields: [uuidPk, str('eyebrow', { width: 'half' }), str('heading', { width: 'half', required: true }), text('body', { note: 'Separate paragraphs with a blank line.' }), ...stylingFields(9)],
   },
   {
     collection: 'block_projects',
@@ -143,12 +171,13 @@ const collections = [
       text('intro'),
       str('more_heading', { width: 'half', note: 'Optional trailing card heading (e.g. "…and more") — card hidden when empty.' }),
       text('more_text', { note: 'Body of the trailing "…and more" card.' }),
+      ...stylingFields(9),
     ],
   },
   {
     collection: 'block_skills',
     meta: { hidden: true, group: 'pages', sort: 6, icon: 'category', note: 'Skills block — renders the Skill Groups collection', display_template: '{{heading}}' },
-    fields: [uuidPk, str('eyebrow', { width: 'half' }), str('heading', { width: 'half', required: true })],
+    fields: [uuidPk, str('eyebrow', { width: 'half' }), str('heading', { width: 'half', required: true }), ...stylingFields(9)],
   },
   {
     collection: 'block_cta',
@@ -161,6 +190,7 @@ const collections = [
       str('heading', { group: 'content', sort: 2, width: 'half', required: true }),
       text('body', { group: 'content', sort: 3 }),
       linksField('actions'),
+      ...stylingFields(4),
     ],
   },
 
@@ -205,15 +235,7 @@ const collections = [
           sort: 2,
           width: 'half',
           note: 'Section background. "Deep dark" and "Accent gradient" flip the text to light automatically.',
-          options: {
-            choices: choices(
-              ['Default', ''],
-              ['Muted', 'bg-elevated/50'],
-              ['Accent tint', 'bg-accent-100/60 dark:bg-accent-950/40'],
-              ['Deep dark', 'dark bg-slate-950'],
-              ['Accent gradient', 'dark bg-linear-to-br from-accent-950 to-slate-950'],
-            ),
-          },
+          options: { choices: BG_CHOICES },
         },
         schema: { default_value: '' },
       },
@@ -281,6 +303,7 @@ const collections = [
       str('url', { sort: 10, note: 'Canonical site URL (no trailing slash).' }),
       text('summary', { sort: 11 }),
       text('private_work_note', { sort: 12, note: 'Shown as the callout in the About section.' }),
+      str('status', { sort: 13, note: 'The "currently" line in the hero (amber pulse) — hidden when empty.' }),
     ],
   },
 ]
@@ -454,7 +477,10 @@ for (const page of snapshot.pages) {
   const { blocks, ...pageFields } = page
   await upsert('pages', pageFields)
   for (const block of blocks) {
-    await upsert(block.collection, block.item)
+    // Snapshot stores block images as local paths written by cms:sync — file
+    // fields are managed in Directus, never re-seeded (same rule as projects).
+    const { image, bg_image, ...itemSeed } = block.item
+    await upsert(block.collection, itemSeed)
     await upsert('pages_blocks', {
       id: block.id,
       pages_id: page.id,

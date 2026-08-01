@@ -2,7 +2,16 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-08-01',
   devtools: { enabled: true },
 
-  modules: ['@nuxt/ui'],
+  modules: ['@nuxt/ui', '@nuxt/fonts'],
+
+  fonts: {
+    // Self-hosted at build time — GitHub Pages serves the font files, no
+    // runtime requests to Google.
+    families: [
+      { name: 'Bricolage Grotesque', provider: 'google', weights: [400, 500, 600, 700, 800] },
+      { name: 'JetBrains Mono', provider: 'google', weights: [400, 500, 600] },
+    ],
+  },
 
   css: ['~/assets/css/main.css'],
 

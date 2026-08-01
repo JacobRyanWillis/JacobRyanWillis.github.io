@@ -12,17 +12,17 @@ const paragraphs = computed<string[]>(() =>
 </script>
 
 <template>
-  <section>
+  <SectionShell :item="item">
     <UContainer class="py-20 sm:py-24">
       <div id="about" class="scroll-mt-24">
         <p
-          class="text-sm font-semibold tracking-widest text-primary uppercase"
+          class="eyebrow"
           :data-directus="attr({ collection: 'block_about', item: item.id, fields: 'eyebrow' })"
         >
           {{ item.eyebrow }}
         </p>
         <h2
-          class="mt-2 text-2xl font-bold tracking-tight text-highlighted sm:text-3xl"
+          class="mt-2 font-display text-2xl font-bold tracking-tight text-highlighted sm:text-3xl"
           :data-directus="attr({ collection: 'block_about', item: item.id, fields: 'heading' })"
         >
           {{ item.heading }}
@@ -48,5 +48,5 @@ const paragraphs = computed<string[]>(() =>
         />
       </div>
     </UContainer>
-  </section>
+  </SectionShell>
 </template>

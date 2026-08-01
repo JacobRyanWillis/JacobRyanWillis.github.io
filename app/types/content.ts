@@ -12,6 +12,7 @@ export interface SiteSettings {
   url: string
   summary: string
   private_work_note: string
+  status: string | null
 }
 
 export interface Metric {

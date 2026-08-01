@@ -12,7 +12,8 @@
     "headshot": "/images/534c8f49-2e5e-48a3-96b4-f1ad20ea8c8e.png",
     "url": "https://jacobryanwillis.github.io",
     "summary": "Full-stack developer specializing in Vue/Nuxt, Node.js, headless CMS architecture, and AI-powered internal tooling, with nearly three years designing, shipping, and owning production systems at scale. Comfortable owning projects end-to-end — from database design and API architecture to responsive frontends and CMS integrations.",
-    "private_work_note": "Most of my production work lives in my employer's private organization repos, so my public GitHub undersells what I build day to day. This site — and its repo — is my public code sample: it runs on the same architecture I build professionally, right down to the Directus page-block system rendering this page. I'm happy to walk through architecture decisions, code samples, or demos from any of these projects in an interview."
+    "private_work_note": "Most of my production work lives in my employer's private organization repos, so my public GitHub undersells what I build day to day. This site — and its repo — is my public code sample: it runs on the same architecture I build professionally, right down to the Directus page-block system rendering this page. I'm happy to walk through architecture decisions, code samples, or demos from any of these projects in an interview.",
+    "status": "Building in public — try the X-ray in the header to see this page’s CMS blocks"
   },
   "metrics": [
     {
@@ -550,7 +551,10 @@
             "id": "b10c0000-0000-4000-8000-000000000003",
             "eyebrow": "About",
             "heading": "Full-stack, end to end",
-            "body": "For nearly three years I've been the full-stack developer behind Creation.com and its surrounding platform: a Directus-based CRM spanning 7 international offices, a cross-channel analytics hub, an email delivery platform reaching 100K+ subscribers daily, and a growing set of AI-powered internal tools.\n\nI specialize in owning systems end-to-end — database design, API architecture, background sync pipelines, responsive frontends, and the CMS integrations that let non-technical teams run them."
+            "body": "For nearly three years I've been the full-stack developer behind Creation.com and its surrounding platform: a Directus-based CRM spanning 7 international offices, a cross-channel analytics hub, an email delivery platform reaching 100K+ subscribers daily, and a growing set of AI-powered internal tools.\n\nI specialize in owning systems end-to-end — database design, API architecture, background sync pipelines, responsive frontends, and the CMS integrations that let non-technical teams run them.",
+            "bg_image": null,
+            "bg_color": "",
+            "bg_opacity": 25
           }
         },
         {
@@ -563,7 +567,10 @@
             "heading": "Case studies from production",
             "intro": "Seven systems I designed and shipped — each case study covers the problem, the architecture, and what it changed.",
             "more_heading": "…and more",
-            "more_text": "Tour booking and conference registration systems, an expense-forms platform, teleprompter automation for the production team, Google Apps Script workflows, and a growing set of AI/MCP integrations. Happy to walk through any of them."
+            "more_text": "Tour booking and conference registration systems, an expense-forms platform, teleprompter automation for the production team, Google Apps Script workflows, and a growing set of AI/MCP integrations. Happy to walk through any of them.",
+            "bg_image": null,
+            "bg_color": "bg-elevated/50",
+            "bg_opacity": 25
           }
         },
         {
@@ -573,7 +580,10 @@
           "item": {
             "id": "b10c0000-0000-4000-8000-000000000005",
             "eyebrow": "Skills",
-            "heading": "What I work with"
+            "heading": "What I work with",
+            "bg_image": null,
+            "bg_color": "dark bg-slate-950",
+            "bg_opacity": 25
           }
         },
         {
@@ -604,7 +614,10 @@
                 "size": "lg",
                 "target": "_blank"
               }
-            ]
+            ],
+            "bg_image": null,
+            "bg_color": "",
+            "bg_opacity": 25
           }
         }
       ]

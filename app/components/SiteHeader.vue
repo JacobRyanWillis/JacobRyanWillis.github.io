@@ -10,6 +10,7 @@ const links = [
 ]
 
 const mobileOpen = ref(false)
+const { enabled: xray, toggle: toggleXray } = useXray()
 </script>
 
 <template>
@@ -25,7 +26,7 @@ const mobileOpen = ref(false)
           :data-directus="attr({ collection: 'site_settings', item: content?.settings.id ?? '', fields: 'headshot' })"
         />
         <span
-          class="font-semibold tracking-tight text-highlighted"
+          class="font-display font-semibold tracking-tight text-highlighted"
           :data-directus="attr({ collection: 'site_settings', item: content?.settings.id ?? '', fields: 'name,role' })"
         >
           {{ content?.settings.name }}
@@ -57,6 +58,17 @@ const mobileOpen = ref(false)
           aria-label="GitHub profile"
           class="hidden sm:inline-flex"
         />
+        <UTooltip text="X-ray: see the CMS blocks behind this page">
+          <UButton
+            icon="i-lucide-scan-eye"
+            :variant="xray ? 'soft' : 'ghost'"
+            :color="xray ? 'primary' : 'neutral'"
+            size="sm"
+            aria-label="Toggle block X-ray"
+            class="hidden sm:inline-flex"
+            @click="toggleXray()"
+          />
+        </UTooltip>
         <UColorModeButton size="sm" />
 
         <!-- Mobile sidebar nav -->
@@ -86,6 +98,16 @@ const mobileOpen = ref(false)
               </UButton>
             </nav>
             <USeparator class="my-4" />
+            <UButton
+              icon="i-lucide-scan-eye"
+              :variant="xray ? 'soft' : 'ghost'"
+              :color="xray ? 'primary' : 'neutral'"
+              size="lg"
+              class="justify-start"
+              @click="toggleXray(); mobileOpen = false"
+            >
+              Block X-ray
+            </UButton>
             <div class="flex flex-col gap-1">
               <UButton
                 :to="content?.settings.resume ?? undefined"

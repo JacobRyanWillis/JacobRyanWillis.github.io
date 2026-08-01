@@ -34,9 +34,12 @@ const blocks = computed(() =>
     <div
       v-for="block in blocks"
       :key="block.id"
+      v-reveal
       :data-directus="attr({ collection: block.collection, item: block.item.id })"
+      :data-xray="`${block.collection} · sort ${block.sort}`"
     >
       <component :is="blockMap[block.collection]" :item="block.item" />
     </div>
+    <XrayBanner />
   </div>
 </template>

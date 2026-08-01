@@ -36,7 +36,7 @@ const { attr } = useVisualEditing()
         :data-directus="attr({ collection: 'block_hero', item: item.id, fields: 'badge' })"
       />
       <h1
-        class="mt-6 text-4xl font-bold tracking-tight text-highlighted sm:text-6xl"
+        class="mt-6 font-display text-4xl font-extrabold tracking-tight text-highlighted sm:text-6xl"
         :data-directus="attr({ collection: 'block_hero', item: item.id, fields: 'heading' })"
       >
         {{ item.heading }}
@@ -52,6 +52,17 @@ const { attr } = useVisualEditing()
         :data-directus="attr({ collection: 'block_hero', item: item.id, fields: 'body' })"
       >
         {{ item.body }}
+      </p>
+      <p
+        v-if="content?.settings.status"
+        class="mt-6 inline-flex items-center gap-2.5 rounded-full border border-default bg-default/60 py-1.5 pr-4 pl-3 font-mono text-sm text-toned backdrop-blur-sm"
+        :data-directus="attr({ collection: 'site_settings', item: content?.settings.id ?? '', fields: 'status' })"
+      >
+        <span class="relative flex size-2" aria-hidden="true">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-warm-400 opacity-75" />
+          <span class="relative inline-flex size-2 rounded-full bg-warm-500" />
+        </span>
+        {{ content?.settings.status }}
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-3">
         <span

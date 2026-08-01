@@ -55,7 +55,7 @@ enable()
           {{ project.featured }}
         </p>
         <h1
-          class="mt-2 text-3xl font-bold tracking-tight text-highlighted sm:text-4xl"
+          class="mt-2 font-display text-3xl font-extrabold tracking-tight text-highlighted sm:text-4xl"
           :data-directus="attr({ collection: 'projects', item: project.id, fields: 'title' })"
         >
           {{ project.title }}
@@ -99,8 +99,7 @@ enable()
       />
 
       <section class="mt-12">
-        <h2 class="flex items-center gap-2 text-sm font-semibold tracking-widest text-primary uppercase">
-          <UIcon name="i-lucide-target" class="size-4" />
+        <h2 class="eyebrow flex items-center gap-2">
           The problem
         </h2>
         <p
@@ -112,8 +111,7 @@ enable()
       </section>
 
       <section class="mt-12">
-        <h2 class="flex items-center gap-2 text-sm font-semibold tracking-widest text-primary uppercase">
-          <UIcon name="i-lucide-layers" class="size-4" />
+        <h2 class="eyebrow flex items-center gap-2">
           Architecture
         </h2>
         <ul
@@ -132,8 +130,7 @@ enable()
       </section>
 
       <section class="mt-12">
-        <h2 class="flex items-center gap-2 text-sm font-semibold tracking-widest text-primary uppercase">
-          <UIcon name="i-lucide-trending-up" class="size-4" />
+        <h2 class="eyebrow flex items-center gap-2">
           Outcome
         </h2>
         <ul
@@ -152,8 +149,7 @@ enable()
       </section>
 
       <section v-if="project.demo_video" class="mt-12">
-        <h2 class="flex items-center gap-2 text-sm font-semibold tracking-widest text-primary uppercase">
-          <UIcon name="i-lucide-monitor-play" class="size-4" />
+        <h2 class="eyebrow flex items-center gap-2">
           Demo
         </h2>
         <div

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { data: content } = await usePortfolioContent()
 const { attr } = useVisualEditing()
+const { toggle: toggleXray } = useXray()
 
 const year = new Date().getFullYear()
 </script>
@@ -14,14 +15,19 @@ const year = new Date().getFullYear()
         </p>
         <p class="mt-1">
           Built with Nuxt, Nuxt UI &amp; Directus —
+          <button type="button" class="cursor-pointer text-primary hover:underline" @click="toggleXray()">
+            X-ray the blocks behind this page
+          </button>
+          or
           <NuxtLink
             to="https://github.com/JacobRyanWillis/JacobRyanWillis.github.io"
             target="_blank"
             class="text-primary hover:underline"
           >
-            this site is its own case study
+            read the source
           </NuxtLink>
         </p>
+        <TerminalEgg />
       </div>
       <div class="flex items-center gap-1">
         <UButton

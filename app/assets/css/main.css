@@ -3,7 +3,9 @@
 
 @theme static {
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+  /* Display face for headings — the site's voice. Body stays system sans. */
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
 
   /* Accent — deep engineering blue, matching the resume's #1F4E79 family */
   --color-accent-50: #eff6fc;
@@ -17,8 +19,75 @@
   --color-accent-800: #1d4467;
   --color-accent-900: #1d3a56;
   --color-accent-950: #13253a;
+
+  /* Warm counterpoint to the engineering blue — used sparingly: eyebrow
+     slashes, the "currently" pulse, selection highlights. */
+  --color-warm-300: #fcd34d;
+  --color-warm-400: #fbbf24;
+  --color-warm-500: #f59e0b;
+  --color-warm-600: #d97706;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: --alpha(var(--color-warm-400) / 30%);
+}
+
+/* ── Section eyebrows ──────────────────────────────────────────────────────
+   Mono label with an amber `//` — the site's small engineering signature. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ui-primary);
+}
+.eyebrow::before {
+  content: "// ";
+  color: var(--color-warm-500);
+}
+
+/* ── Scroll reveal (v-reveal directive) ────────────────────────────────────
+   The directive adds .reveal only once JS runs, so content is never hidden
+   without JavaScript. prefers-reduced-motion users skip the whole thing. */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+}
+.reveal-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--reveal-delay, 0) * 90ms);
+}
+
+/* ── Block X-ray ───────────────────────────────────────────────────────────
+   When <html> has .xray, every page block shows its Directus anatomy:
+   dashed outline + a mono chip naming the collection and sort order. */
+.xray [data-xray] {
+  position: relative;
+  outline: 2px dashed --alpha(var(--color-accent-500) / 60%);
+  outline-offset: -6px;
+}
+.xray [data-xray]::after {
+  content: attr(data-xray);
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 30;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: white;
+  background: var(--color-accent-700);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
 }

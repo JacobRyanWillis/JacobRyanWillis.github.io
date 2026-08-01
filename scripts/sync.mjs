@@ -56,6 +56,7 @@ const snapshot = {
     url: settings.url,
     summary: settings.summary,
     private_work_note: settings.private_work_note,
+    status: settings.status ?? null,
   },
   metrics: metrics.map((m) => ({ id: m.id, value: m.value, label: m.label, sort: m.sort })),
   skill_groups: skillGroups.map((g) => ({ id: g.id, title: g.title, items: g.items, sort: g.sort })),
