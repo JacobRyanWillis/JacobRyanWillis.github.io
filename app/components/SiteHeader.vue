@@ -3,11 +3,13 @@ const { data: content } = await usePortfolioContent()
 const { attr } = useVisualEditing()
 
 const links = [
-  { label: 'About', to: '/#about' },
-  { label: 'Projects', to: '/#projects' },
-  { label: 'Skills', to: '/#skills' },
-  { label: 'Contact', to: '/#contact' },
+  { label: 'About', to: '/#about', icon: 'i-lucide-user' },
+  { label: 'Projects', to: '/#projects', icon: 'i-lucide-folder-kanban' },
+  { label: 'Skills', to: '/#skills', icon: 'i-lucide-badge-check' },
+  { label: 'Contact', to: '/#contact', icon: 'i-lucide-mail' },
 ]
+
+const mobileOpen = ref(false)
 </script>
 
 <template>
@@ -53,8 +55,74 @@ const links = [
           color="neutral"
           size="sm"
           aria-label="GitHub profile"
+          class="hidden sm:inline-flex"
         />
         <UColorModeButton size="sm" />
+
+        <!-- Mobile sidebar nav -->
+        <USlideover v-model:open="mobileOpen" side="left" title="Navigation" description="Jump to a section">
+          <UButton
+            icon="i-lucide-menu"
+            variant="ghost"
+            color="neutral"
+            size="sm"
+            aria-label="Open navigation menu"
+            class="sm:hidden"
+          />
+          <template #body>
+            <nav class="flex flex-col gap-1">
+              <UButton
+                v-for="link in links"
+                :key="link.label"
+                :to="link.to"
+                :icon="link.icon"
+                variant="ghost"
+                color="neutral"
+                size="lg"
+                class="justify-start"
+                @click="mobileOpen = false"
+              >
+                {{ link.label }}
+              </UButton>
+            </nav>
+            <USeparator class="my-4" />
+            <div class="flex flex-col gap-1">
+              <UButton
+                :to="content?.settings.resume ?? undefined"
+                icon="i-lucide-file-down"
+                variant="ghost"
+                color="neutral"
+                size="lg"
+                class="justify-start"
+                @click="mobileOpen = false"
+              >
+                Resume
+              </UButton>
+              <UButton
+                :to="content?.settings.github"
+                target="_blank"
+                icon="i-lucide-github"
+                variant="ghost"
+                color="neutral"
+                size="lg"
+                class="justify-start"
+              >
+                GitHub
+              </UButton>
+              <UButton
+                :to="content?.settings.linkedin"
+                target="_blank"
+                icon="i-lucide-linkedin"
+                variant="ghost"
+                color="neutral"
+                size="lg"
+                class="justify-start"
+              >
+                LinkedIn
+              </UButton>
+            </div>
+          </template>
+        </USlideover>
       </nav>
     </UContainer>
   </header>
