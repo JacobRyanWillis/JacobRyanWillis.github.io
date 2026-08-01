@@ -194,7 +194,7 @@
       ],
       "callout": "You're looking at it: this site's homepage is rendered by a simplified version of this exact system — a Directus `page` row composed of `page_blocks`, with visual editing in dev. The repo shows the whole pattern end to end.",
       "image": null,
-      "demo_video": null,
+      "demo_video": "https://youtu.be/jgjSxB1NYLQ",
       "sort": 1
     },
     {
