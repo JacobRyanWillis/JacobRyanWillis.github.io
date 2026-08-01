@@ -193,7 +193,7 @@
         }
       ],
       "callout": "You're looking at it: this site's homepage is rendered by a simplified version of this exact system — a Directus `page` row composed of `page_blocks`, with visual editing in dev. The repo shows the whole pattern end to end.",
-      "image": null,
+      "image": "/images/f681cffb-694e-40b6-9778-c2406b9431cf.png",
       "demo_video": "https://youtu.be/jgjSxB1NYLQ",
       "sort": 1
     },
@@ -244,7 +244,7 @@
         }
       ],
       "callout": null,
-      "image": null,
+      "image": "/images/c737b54e-9025-4c38-8b07-baede25cd41f.png",
       "demo_video": "https://youtu.be/-mFsY-KpuuQ",
       "sort": 2
     },
@@ -289,7 +289,7 @@
         }
       ],
       "callout": null,
-      "image": null,
+      "image": "/images/1290ed48-1041-41b0-b161-92609c77ef81.png",
       "demo_video": "https://youtu.be/WdNYwmIXnBs",
       "sort": 3
     },
@@ -335,7 +335,7 @@
         }
       ],
       "callout": null,
-      "image": null,
+      "image": "/images/ab9eb455-4bea-4694-bca2-a987bf5e3d80.png",
       "demo_video": null,
       "sort": 4
     },
@@ -381,7 +381,7 @@
         }
       ],
       "callout": null,
-      "image": null,
+      "image": "/images/3c57fb80-06b9-4131-9d16-68a5444adda7.png",
       "demo_video": "https://youtu.be/wU6774wfCZc",
       "sort": 5
     },
@@ -429,7 +429,7 @@
         }
       ],
       "callout": null,
-      "image": null,
+      "image": "/images/9898e97d-5e8c-4745-bd38-8dc3e0039322.png",
       "demo_video": "https://youtu.be/hhN2qv3ZQUA",
       "sort": 6
     },
@@ -478,7 +478,7 @@
         }
       ],
       "callout": null,
-      "image": null,
+      "image": "/images/e59cd319-0f04-4133-af44-cd2ad0de05c2.png",
       "demo_video": "https://youtu.be/uC2Cn2ifDZA",
       "sort": 7
     }
