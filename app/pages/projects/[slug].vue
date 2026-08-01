@@ -151,6 +151,19 @@ enable()
         </ul>
       </section>
 
+      <section v-if="project.demo_video" class="mt-12">
+        <h2 class="flex items-center gap-2 text-sm font-semibold tracking-widest text-primary uppercase">
+          <UIcon name="i-lucide-monitor-play" class="size-4" />
+          Demo
+        </h2>
+        <div
+          class="mt-4"
+          :data-directus="attr({ collection: 'projects', item: project.id, fields: 'demo_video' })"
+        >
+          <EmbedYouTube :url="project.demo_video" :title="`${project.title} demo`" />
+        </div>
+      </section>
+
       <nav class="mt-16 grid gap-4 border-t border-default pt-8 sm:grid-cols-2">
         <NuxtLink
           v-if="prev"

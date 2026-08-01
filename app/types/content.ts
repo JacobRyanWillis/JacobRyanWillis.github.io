@@ -41,6 +41,7 @@ export interface Project {
   outcomes: { text: string }[]
   callout: string | null
   image: string | null
+  demo_video: string | null
   sort: number
 }
 

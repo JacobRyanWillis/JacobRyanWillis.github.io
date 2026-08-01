@@ -73,21 +73,30 @@ const snapshot = {
       outcomes: p.outcomes,
       callout: p.callout,
       image: await localizeFile(p.image),
+      demo_video: p.demo_video ?? null,
       sort: p.sort,
     })),
   ),
-  pages: pages.map((page) => ({
-    id: page.id,
-    slug: page.slug,
-    title: page.title,
-    description: page.description,
-    blocks: page.blocks.map((block) => ({
-      id: block.id,
-      collection: block.collection,
-      sort: block.sort,
-      item: block.item,
+  pages: await Promise.all(
+    pages.map(async (page) => ({
+      id: page.id,
+      slug: page.slug,
+      title: page.title,
+      description: page.description,
+      blocks: await Promise.all(
+        page.blocks.map(async (block) => ({
+          id: block.id,
+          collection: block.collection,
+          sort: block.sort,
+          // Blocks may carry an image file (e.g. block_section) — localize it
+          // the same way project images are.
+          item: block.item?.image
+            ? { ...block.item, image: await localizeFile(block.item.image) }
+            : block.item,
+        })),
+      ),
     })),
-  })),
+  ),
 }
 
 const target = new URL('../content/snapshot.json', import.meta.url)

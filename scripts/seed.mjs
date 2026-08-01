@@ -14,7 +14,7 @@ import { login, api, apiUpload } from './directus.mjs'
 
 const snapshot = JSON.parse(await readFile(new URL('../content/snapshot.json', import.meta.url), 'utf8'))
 
-const BLOCK_COLLECTIONS = ['block_hero', 'block_metrics', 'block_about', 'block_projects', 'block_skills', 'block_cta']
+const BLOCK_COLLECTIONS = ['block_hero', 'block_metrics', 'block_about', 'block_projects', 'block_skills', 'block_cta', 'block_section', 'block_embed']
 const BLUE = '#3399FF'
 
 const uuidPk = { field: 'id', type: 'uuid', meta: { special: ['uuid'], readonly: true, hidden: true }, schema: { is_primary_key: true } }
@@ -154,6 +154,50 @@ const collections = [
     ],
   },
 
+  {
+    // The "global component" block, mirroring WARP's block_section: a named,
+    // reusable section whose `display` field selects the rendering component.
+    collection: 'block_section',
+    meta: { hidden: true, group: 'pages', sort: 8, icon: 'rectangle', note: 'Reusable section — display picks the component', display_template: '{{name}}' },
+    fields: [
+      uuidPk,
+      detailGroup('content', 2, 'article', 'Main content fields for this block'),
+      detailGroup('layout', 3, 'view_compact', 'Layout and display options'),
+      detailGroup('actions', 4, 'link', 'Call-to-action links'),
+      str('name', { sort: 1, required: true, note: 'Name your block (must be unique) — this is how you find it to reuse it on other pages.' }),
+      str('headline', { group: 'content', sort: 1, width: 'half', note: 'Small text displayed above the title' }),
+      str('title', { group: 'content', sort: 2, width: 'half' }),
+      text('body', { group: 'content', sort: 3, note: 'Separate paragraphs with a blank line.' }),
+      { field: 'image', type: 'uuid', meta: { interface: 'file-image', special: ['file'], group: 'content', sort: 4, note: 'Optional image — synced into the repo by cms:sync.' }, schema: {} },
+      {
+        field: 'display',
+        type: 'string',
+        meta: {
+          interface: 'select-dropdown',
+          group: 'layout',
+          sort: 1,
+          note: 'Select the section component, or type a custom global component name',
+          options: {
+            allowOther: true,
+            choices: choices(['Default', 'SectionDefault'], ['Center Card', 'SectionCenterCard'], ['Two Column', 'SectionTwoColumn']),
+          },
+        },
+        schema: { default_value: 'SectionDefault' },
+      },
+      linksField('actions'),
+    ],
+  },
+  {
+    collection: 'block_embed',
+    meta: { hidden: true, group: 'pages', sort: 9, icon: 'smart_display', note: 'Embedded media (YouTube)', display_template: '{{heading}}' },
+    fields: [
+      uuidPk,
+      str('heading', { sort: 1, width: 'half' }),
+      str('url', { sort: 2, note: 'YouTube URL (watch, share, or shorts link)', required: true }),
+      str('caption', { sort: 3 }),
+    ],
+  },
+
   // ── Content collections ────────────────────────────────────────────────
   {
     collection: 'projects',
@@ -171,6 +215,7 @@ const collections = [
       tags('stack', { sort: 9, note: 'Tech shown as badges — press Enter after each entry.' }),
       text('callout', { sort: 10, note: 'Optional highlight box on the case study page.' }),
       { field: 'image', type: 'uuid', meta: { interface: 'file-image', special: ['file'], sort: 11, note: 'Optional screenshot — synced into the repo by cms:sync.' }, schema: {} },
+      str('demo_video', { sort: 12, note: 'YouTube URL — renders the Demo section on the case study page.' }),
       int('sort'),
     ],
   },
@@ -297,7 +342,10 @@ async function ensureResumeFile(folders) {
 async function ensureRelation(rel) {
   const existing = await api(`/relations/${rel.collection}/${rel.field}`, { ok404: true })
   if (existing) {
-    console.log(`  relation ${rel.collection}.${rel.field} exists`)
+    // Keep relation meta in sync — new block collections must be added to
+    // the M2A's one_allowed_collections or they can't be picked in the editor.
+    await api(`/relations/${rel.collection}/${rel.field}`, { method: 'PATCH', body: { meta: rel.meta } })
+    console.log(`  synced relation ${rel.collection}.${rel.field}`)
     return
   }
   await api('/relations', { method: 'POST', body: rel })
