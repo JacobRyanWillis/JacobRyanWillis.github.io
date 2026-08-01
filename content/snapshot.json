@@ -1,0 +1,412 @@
+{
+  "settings": {
+    "id": "0a000000-0000-4000-8000-000000000001",
+    "name": "Jacob Willis",
+    "role": "Full-Stack Developer",
+    "tagline": "Vue/Nuxt · Node.js · Directus · AI tooling",
+    "location": "Atlanta, GA",
+    "email": "jacobwillis2012@gmail.com",
+    "github": "https://github.com/JacobRyanWillis",
+    "linkedin": "https://www.linkedin.com/in/jacobryanwillis",
+    "resume": "/Jacob_Willis_Resume_2026.pdf",
+    "url": "https://jacobryanwillis.github.io",
+    "summary": "Full-stack developer specializing in Vue/Nuxt, Node.js, headless CMS architecture, and AI-powered internal tooling, with nearly three years designing, shipping, and owning production systems at scale. Comfortable owning projects end-to-end — from database design and API architecture to responsive frontends and CMS integrations.",
+    "private_work_note": "Most of my production work lives in my employer's private organization repos, so my public GitHub undersells what I build day to day. This site — and its repo — is my public code sample: it runs on the same architecture I build professionally, right down to the Directus page-block system rendering this page. I'm happy to walk through architecture decisions, code samples, or demos from any of these projects in an interview."
+  },
+  "metrics": [
+    {
+      "id": "0e000000-0000-4000-8000-000000000001",
+      "value": "Millions",
+      "label": "monthly visitors on Creation.com",
+      "sort": 1
+    },
+    {
+      "id": "0e000000-0000-4000-8000-000000000002",
+      "value": "100K+",
+      "label": "daily email subscribers served",
+      "sort": 2
+    },
+    {
+      "id": "0e000000-0000-4000-8000-000000000003",
+      "value": "7",
+      "label": "international offices on one CRM",
+      "sort": 3
+    },
+    {
+      "id": "0e000000-0000-4000-8000-000000000004",
+      "value": "7",
+      "label": "e-commerce stores feeding analytics",
+      "sort": 4
+    },
+    {
+      "id": "0e000000-0000-4000-8000-000000000005",
+      "value": "5",
+      "label": "marketing channels synced nightly",
+      "sort": 5
+    },
+    {
+      "id": "0e000000-0000-4000-8000-000000000006",
+      "value": "60%",
+      "label": "less manual admin processing",
+      "sort": 6
+    }
+  ],
+  "skill_groups": [
+    {
+      "id": "0c000000-0000-4000-8000-000000000001",
+      "title": "Languages",
+      "items": [
+        "JavaScript",
+        "TypeScript",
+        "Python",
+        "SQL",
+        "C",
+        "PHP"
+      ],
+      "sort": 1
+    },
+    {
+      "id": "0c000000-0000-4000-8000-000000000002",
+      "title": "Frontend",
+      "items": [
+        "Vue.js",
+        "Nuxt",
+        "React",
+        "React Native",
+        "HTML",
+        "CSS",
+        "Tailwind",
+        "Bootstrap",
+        "Bulma",
+        "NuxtUI",
+        "MJML",
+        "ApexCharts"
+      ],
+      "sort": 2
+    },
+    {
+      "id": "0c000000-0000-4000-8000-000000000003",
+      "title": "Backend",
+      "items": [
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "MySQL",
+        "SQLite",
+        "Supabase"
+      ],
+      "sort": 3
+    },
+    {
+      "id": "0c000000-0000-4000-8000-000000000004",
+      "title": "AI Tooling",
+      "items": [
+        "AI OCR pipelines",
+        "LLM API integration",
+        "MCP servers & tooling",
+        "AI-assisted workflow automation"
+      ],
+      "sort": 4
+    },
+    {
+      "id": "0c000000-0000-4000-8000-000000000005",
+      "title": "Tools & Platforms",
+      "items": [
+        "Git/GitHub",
+        "Directus CMS",
+        "Docker",
+        "Cloudflare",
+        "GetResponse",
+        "Meta Graph API",
+        "YouTube Data API",
+        "GraphQL",
+        "Apollo",
+        "PrestaShop",
+        "Figma",
+        "Insomnia",
+        "Google Apps Script"
+      ],
+      "sort": 5
+    },
+    {
+      "id": "0c000000-0000-4000-8000-000000000006",
+      "title": "Concepts",
+      "items": [
+        "RESTful APIs",
+        "Headless CMS",
+        "MVC Architecture",
+        "State Management",
+        "OOP",
+        "Responsive Design"
+      ],
+      "sort": 6
+    }
+  ],
+  "projects": [
+    {
+      "id": "0f000000-0000-4000-8000-000000000001",
+      "slug": "page-blocks",
+      "title": "Page Blocks — Composable Content Engine",
+      "subtitle": "The block-based page system behind Creation.com — and the one rendering this site",
+      "summary": "A Directus many-to-any block system where editors compose pages from a library of reusable block types, rendered by a dynamic Vue component map — with click-to-edit visual editing on the live site.",
+      "featured": "M2A architecture · visual editing · powers this site",
+      "problem": "Every layout change on Creation.com used to need a developer. The editorial team wanted to compose, reorder, and publish rich pages — sections, galleries, FAQs, testimonials, products, video series — without touching code, and without the design system fragmenting into one-off page builds.",
+      "architecture": [
+        "A `page` collection and a `page_blocks` many-to-any junction (collection / item / sort) let one page own an ordered mix of block types, where each block type is its own Directus collection with exactly the fields it needs.",
+        "A dynamic renderer on the Nuxt side maps block types to Vue components, so a page is data all the way down — adding a new block type means one new collection and one new component.",
+        "Directus visual editing overlays click-to-edit controls on the live site, so editors adjust blocks in place — the 'visual editor'.",
+        "The block library grew to cover page sections, galleries, FAQs, testimonials, people, products, and video series, all reusable across the site.",
+        "This portfolio implements the same architecture in miniature: the homepage is a `page` row composed of `page_blocks` rows, authored in a local Dockerized Directus and snapshotted into the repo at build time."
+      ],
+      "stack": [
+        "Directus",
+        "Nuxt 3",
+        "Vue 3",
+        "TypeScript",
+        "M2A relations",
+        "Directus Visual Editing"
+      ],
+      "outcomes": [
+        "The editorial team composes and publishes complete pages with zero developer involvement.",
+        "New landing pages ship in minutes instead of going through a development cycle.",
+        "Page structure became data with a single source of truth, replacing hardcoded layouts.",
+        "The pattern was designed once and now renders everything from campaign pages to this portfolio."
+      ],
+      "callout": "You're looking at it: this site's homepage is rendered by a simplified version of this exact system — a Directus `page` row composed of `page_blocks`, with visual editing in dev. The repo shows the whole pattern end to end.",
+      "image": null,
+      "sort": 1
+    },
+    {
+      "id": "0f000000-0000-4000-8000-000000000002",
+      "slug": "analytics-hub",
+      "title": "Cross-Channel Analytics Hub",
+      "subtitle": "Unified sales, email, and social metrics for leadership across 7 offices",
+      "summary": "A pluggable adapter system that syncs metrics from 7 e-commerce stores and 5 marketing channels into unified, permission-scoped dashboards.",
+      "featured": "7 stores · 5 channels · nightly syncs",
+      "problem": "Leadership across 7 international offices had no single view of performance. Sales lived in 7 regional PrestaShop stores (each in its own currency), email metrics in GetResponse across 17 mailing lists, and social reach across YouTube, Facebook, and Instagram. Reporting meant manually pulling numbers from five different admin panels.",
+      "architecture": [
+        "Designed a pluggable adapter system: each channel (PrestaShop, GetResponse, YouTube, Facebook, Instagram) implements a common sync interface, so adding a new source is a new adapter — not a rewrite.",
+        "Nightly automated syncs plus on-demand backfills, with per-store currency handling for the 7 international PrestaShop instances.",
+        "Normalized metrics into Directus collections that power dashboard queries.",
+        "Vue 3 + ApexCharts dashboards with cross-channel KPIs, period-over-period deltas, and per-channel deep dives.",
+        "Office-scoped row-level access policies so each office sees exactly its own data — leadership sees the whole picture."
+      ],
+      "stack": [
+        "Vue 3",
+        "ApexCharts",
+        "Directus",
+        "Node.js",
+        "PrestaShop API",
+        "GetResponse API",
+        "YouTube Data API",
+        "Meta Graph API"
+      ],
+      "outcomes": [
+        "One permission-scoped dashboard replaced five separate admin panels for reporting.",
+        "Leadership across 7 offices reviews unified, always-current KPIs instead of hand-built spreadsheets.",
+        "New channels can be onboarded by writing a single adapter against the sync interface."
+      ],
+      "callout": null,
+      "image": null,
+      "sort": 2
+    },
+    {
+      "id": "0f000000-0000-4000-8000-000000000003",
+      "slug": "customer-crm",
+      "title": "Contacts Database (CRM)",
+      "subtitle": "The organization-wide system of record on Directus",
+      "summary": "A 26-collection Directus CRM managing contacts, subscriber lists, and digital-content access across 7 international offices — replacing a legacy dual-write system.",
+      "featured": "26 collections · 7 offices · sole system of record",
+      "problem": "Customer data was split across a legacy system and newer tools, kept in sync by fragile dual writes. There was no single source of truth for who a contact was, what they subscribed to, or what digital content they could access.",
+      "architecture": [
+        "Designed a 26-collection Directus schema covering contacts, subscriber lists, and digital-content access, built in collaboration with a senior developer.",
+        "Modeled office-level data ownership with row-level access policies across 7 international offices.",
+        "Migrated off the legacy dual-write system so the CRM became the sole system of record.",
+        "Integrated with the email platform (GetResponse list sync, batch uploads, bulk unsubscribe) via custom Directus extensions."
+      ],
+      "stack": [
+        "Directus",
+        "Node.js",
+        "MySQL",
+        "TypeScript",
+        "GetResponse API"
+      ],
+      "outcomes": [
+        "Eliminated dual-write drift: one system of record for contacts, subscriptions, and content access.",
+        "Non-technical staff in every office manage customer data through Directus with scoped permissions.",
+        "Became the foundation the analytics hub and email platform are built on."
+      ],
+      "callout": null,
+      "image": null,
+      "sort": 3
+    },
+    {
+      "id": "0f000000-0000-4000-8000-000000000004",
+      "slug": "warp-redesign",
+      "title": "WARP — Creation.com Redesign",
+      "subtitle": "Full redesign and migration of a site with millions of monthly visitors",
+      "summary": "Migrated a legacy site to Nuxt 3 + Directus on a fully headless architecture — preserving SEO rankings and uptime throughout.",
+      "featured": "Millions of monthly visitors · zero SEO regression",
+      "problem": "Creation.com ran on a legacy stack that made content changes slow and developer-dependent, and its architecture limited performance. The migration had to happen without losing search rankings or uptime for a site serving millions of monthly visitors.",
+      "architecture": [
+        "Rebuilt the site on Nuxt 3 with Directus as a fully headless CMS.",
+        "Powered content pages with the page-block composable content engine (its own case study), so the editorial team composes and publishes pages without developer involvement.",
+        "Optimized page-load performance with SSR, asset optimization, and Cloudflare-backed delivery.",
+        "Managed the migration with redirect mapping and metadata parity to preserve SEO rankings and uptime continuity."
+      ],
+      "stack": [
+        "Nuxt 3",
+        "Vue 3",
+        "TypeScript",
+        "Directus",
+        "Tailwind",
+        "Cloudflare"
+      ],
+      "outcomes": [
+        "Improved page-load performance on a fully headless architecture.",
+        "Editorial team builds and publishes landing pages independently — no developer bottleneck.",
+        "SEO rankings and uptime held steady through the entire migration."
+      ],
+      "callout": null,
+      "image": null,
+      "sort": 4
+    },
+    {
+      "id": "0f000000-0000-4000-8000-000000000005",
+      "slug": "creation-daily",
+      "title": "The Creation Daily — Email Delivery Platform",
+      "subtitle": "End-to-end transactional and marketing email at 100K+ daily sends",
+      "summary": "A full-stack email system integrating Nuxt frontend forms, Directus backend workflows, GetResponse, and dynamic MJML + Liquid.js templating.",
+      "featured": "100K+ daily subscribers · 17 mailing lists",
+      "problem": "The organization needed to reliably reach 100K+ daily subscribers with both transactional and marketing email — with personalized content, manageable templates, and subscriber lists that stay in sync with the CRM.",
+      "architecture": [
+        "Nuxt frontend forms feeding Directus backend workflows for signups, preferences, and unsubscribes.",
+        "MJML templating compiled to responsive email HTML, with Liquid.js for dynamic per-recipient personalization.",
+        "GetResponse integration managing 17 mailing lists, send schedules, and delivery logs.",
+        "Directus workflows as the operational layer: staff manage lists, schedules, and content without touching code."
+      ],
+      "stack": [
+        "Nuxt",
+        "Node.js",
+        "Directus",
+        "GetResponse",
+        "MJML",
+        "Liquid.js"
+      ],
+      "outcomes": [
+        "Supports 100K+ daily sends across transactional and marketing email.",
+        "Template changes are compiled MJML — consistent rendering across email clients.",
+        "Subscriber lists stay consistent with the CRM system of record."
+      ],
+      "callout": null,
+      "image": null,
+      "sort": 5
+    },
+    {
+      "id": "0f000000-0000-4000-8000-000000000006",
+      "slug": "ai-receipts",
+      "title": "AI Receipt Export Tool",
+      "subtitle": "An AI OCR pipeline that eliminated manual travel-expense transcription",
+      "summary": "Speakers upload trip receipts, an AI OCR pipeline extracts line-item data, staff review in an editing UI, and one click exports to Excel or the CRM.",
+      "featured": "AI OCR · human-in-the-loop review · one-click export",
+      "problem": "Returning speakers submitted stacks of paper travel receipts that staff transcribed into spreadsheets by hand — slow, error-prone, and entirely manual.",
+      "architecture": [
+        "Upload flow where speakers submit trip receipts from any device.",
+        "AI OCR pipeline extracts line-item data (vendor, date, amounts, categories) from receipt images.",
+        "Human-in-the-loop review UI where staff verify and correct extracted data before it goes anywhere.",
+        "One-click export to Excel or directly into the Directus contacts database.",
+        "The same AI-tooling pattern (extract → review → export) was reused to accelerate processes in other departments."
+      ],
+      "stack": [
+        "Vue 3",
+        "Node.js",
+        "LLM APIs / AI OCR",
+        "Directus",
+        "Excel export"
+      ],
+      "outcomes": [
+        "Replaced fully manual expense transcription with an automated, reviewable pipeline.",
+        "Staff time shifted from data entry to quick verification.",
+        "Established a reusable AI-tooling pattern adopted by other departments."
+      ],
+      "callout": null,
+      "image": null,
+      "sort": 6
+    }
+  ],
+  "pages": [
+    {
+      "id": "aaaa0000-0000-4000-8000-000000000001",
+      "slug": "home",
+      "title": null,
+      "description": "Jacob Willis — full-stack developer in Atlanta, GA specializing in Vue/Nuxt, Node.js, Directus headless CMS, and AI-powered internal tooling.",
+      "blocks": [
+        {
+          "id": "bbbb0000-0000-4000-8000-000000000001",
+          "collection": "block_hero",
+          "sort": 1,
+          "item": {
+            "id": "b10c0000-0000-4000-8000-000000000001",
+            "badge": "Open to full-stack roles",
+            "heading": "Jacob Willis",
+            "subheading": "Full-Stack Developer · Vue/Nuxt · Node.js · Directus · AI tooling",
+            "body": "I design, ship, and own production systems end-to-end — a content platform serving millions of monthly visitors, an email system reaching 100K+ daily subscribers, and AI tools that eliminated manual data entry across teams."
+          }
+        },
+        {
+          "id": "bbbb0000-0000-4000-8000-000000000002",
+          "collection": "block_metrics",
+          "sort": 2,
+          "item": {
+            "id": "b10c0000-0000-4000-8000-000000000002",
+            "eyebrow": null,
+            "heading": null
+          }
+        },
+        {
+          "id": "bbbb0000-0000-4000-8000-000000000003",
+          "collection": "block_about",
+          "sort": 3,
+          "item": {
+            "id": "b10c0000-0000-4000-8000-000000000003",
+            "eyebrow": "About",
+            "heading": "Full-stack, end to end",
+            "body": "For nearly three years I've been the full-stack developer behind Creation.com and its surrounding platform: a Directus-based CRM spanning 7 international offices, a cross-channel analytics hub, an email delivery platform reaching 100K+ subscribers daily, and a growing set of AI-powered internal tools.\n\nI specialize in owning systems end-to-end — database design, API architecture, background sync pipelines, responsive frontends, and the CMS integrations that let non-technical teams run them."
+          }
+        },
+        {
+          "id": "bbbb0000-0000-4000-8000-000000000004",
+          "collection": "block_projects",
+          "sort": 4,
+          "item": {
+            "id": "b10c0000-0000-4000-8000-000000000004",
+            "eyebrow": "Projects",
+            "heading": "Case studies from production",
+            "intro": "Six systems I designed and shipped — each case study covers the problem, the architecture, and what it changed."
+          }
+        },
+        {
+          "id": "bbbb0000-0000-4000-8000-000000000005",
+          "collection": "block_skills",
+          "sort": 5,
+          "item": {
+            "id": "b10c0000-0000-4000-8000-000000000005",
+            "eyebrow": "Skills",
+            "heading": "What I work with"
+          }
+        },
+        {
+          "id": "bbbb0000-0000-4000-8000-000000000006",
+          "collection": "block_cta",
+          "sort": 6,
+          "item": {
+            "id": "b10c0000-0000-4000-8000-000000000006",
+            "eyebrow": "Contact",
+            "heading": "Let's talk",
+            "body": "I'm looking for my next full-stack role. If you'd like to walk through any of these systems — architecture decisions, code samples, or demos — reach out."
+          }
+        }
+      ]
+    }
+  ]
+}

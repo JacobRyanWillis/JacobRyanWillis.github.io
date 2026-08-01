@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import { site } from '~/data/site'
-
-useHead({
-  titleTemplate: (title?: string | null) =>
-    title ? `${title} · Jacob Willis` : 'Jacob Willis · Full-Stack Developer',
-})
-
 useHead({
   titleTemplate: (title?: string | null) =>
     title ? `${title} · Jacob Willis` : 'Jacob Willis · Full-Stack Developer',
 })
 
 useSeoMeta({
-  ogSiteName: site.name,
+  ogSiteName: 'Jacob Willis',
   ogType: 'website',
 })
 </script>
 
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <UApp>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </UApp>
 </template>

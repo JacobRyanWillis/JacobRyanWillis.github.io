@@ -7,13 +7,20 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "cms": "docker compose up -d",
+    "cms:seed": "node scripts/seed.mjs",
+    "cms:sync": "node scripts/sync.mjs",
+    "dev:live": "NUXT_PUBLIC_DIRECTUS_URL=http://localhost:8055 nuxt dev"
   },
   "dependencies": {
+    "@directus/visual-editing": "^2.1.0",
+    "@nuxt/ui": "^4.10.0",
     "nuxt": "^4.5.1",
     "vue": "^3.5.40"
   },
   "devDependencies": {
+    "@iconify-json/lucide": "^1.2.121",
     "@tailwindcss/vite": "^4.3.3",
     "tailwindcss": "^4.3.3"
   },

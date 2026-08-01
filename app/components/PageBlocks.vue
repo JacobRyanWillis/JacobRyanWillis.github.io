@@ -1,0 +1,34 @@
+<script setup lang="ts">
+import type { Page } from '~/types/content'
+import { BlockHero, BlockMetrics, BlockAbout, BlockProjects, BlockSkills, BlockCta } from '#components'
+
+const props = defineProps<{ page: Page }>()
+
+// The block renderer: each Directus block collection maps to one Vue
+// component — the same pattern that powers Creation.com's pages.
+const blockMap: Record<string, unknown> = {
+  block_hero: BlockHero,
+  block_metrics: BlockMetrics,
+  block_about: BlockAbout,
+  block_projects: BlockProjects,
+  block_skills: BlockSkills,
+  block_cta: BlockCta,
+}
+
+const blocks = computed(() =>
+  [...props.page.blocks]
+    .sort((a, b) => a.sort - b.sort)
+    .filter((block) => blockMap[block.collection]),
+)
+</script>
+
+<template>
+  <div>
+    <component
+      :is="blockMap[block.collection]"
+      v-for="block in blocks"
+      :key="block.id"
+      :item="block.item"
+    />
+  </div>
+</template>

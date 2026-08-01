@@ -1,0 +1,44 @@
+<script setup lang="ts">
+const props = defineProps<{ item: Record<string, any> }>()
+
+const { data: content } = await usePortfolioContent()
+const { attr } = useVisualEditing()
+
+const paragraphs = computed<string[]>(() =>
+  String(props.item.body ?? '')
+    .split(/\n\n+/)
+    .filter(Boolean),
+)
+</script>
+
+<template>
+  <section>
+    <UContainer class="py-20 sm:py-24">
+      <div id="about" class="scroll-mt-24">
+        <p class="text-sm font-semibold tracking-widest text-primary uppercase">{{ item.eyebrow }}</p>
+        <h2
+          class="mt-2 text-2xl font-bold tracking-tight text-highlighted sm:text-3xl"
+          :data-directus="attr({ collection: 'block_about', item: item.id, fields: 'heading' })"
+        >
+          {{ item.heading }}
+        </h2>
+      </div>
+      <div class="mt-6 max-w-3xl space-y-4 text-base leading-relaxed text-toned">
+        <p>{{ content?.settings.summary }}</p>
+        <p
+          v-for="(paragraph, i) in paragraphs"
+          :key="i"
+          :data-directus="attr({ collection: 'block_about', item: item.id, fields: 'body' })"
+        >
+          {{ paragraph }}
+        </p>
+        <UAlert
+          icon="i-lucide-lock"
+          color="primary"
+          variant="subtle"
+          :description="content?.settings.private_work_note"
+        />
+      </div>
+    </UContainer>
+  </section>
+</template>

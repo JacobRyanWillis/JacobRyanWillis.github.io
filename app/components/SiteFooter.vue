@@ -1,21 +1,57 @@
 <script setup lang="ts">
-import { site } from '~/data/site'
+const { data: content } = await usePortfolioContent()
 
 const year = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="border-t border-slate-200 py-8 dark:border-slate-800">
-    <div
-      class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-4 text-sm text-slate-500 sm:flex-row sm:px-6 dark:text-slate-400"
-    >
-      <p>© {{ year }} {{ site.name }} · {{ site.location }}</p>
-      <div class="flex items-center gap-4">
-        <a :href="site.github" target="_blank" rel="noopener" class="transition hover:text-slate-900 dark:hover:text-white">GitHub</a>
-        <a :href="site.linkedin" target="_blank" rel="noopener" class="transition hover:text-slate-900 dark:hover:text-white">LinkedIn</a>
-        <a :href="`mailto:${site.email}`" class="transition hover:text-slate-900 dark:hover:text-white">Email</a>
-        <a :href="site.resume" class="transition hover:text-slate-900 dark:hover:text-white">Resume</a>
+  <footer class="border-t border-default py-10">
+    <UContainer class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+      <div class="text-center text-sm text-muted sm:text-left">
+        <p>© {{ year }} {{ content?.settings.name }} · {{ content?.settings.location }}</p>
+        <p class="mt-1">
+          Built with Nuxt, Nuxt UI &amp; Directus —
+          <NuxtLink
+            to="https://github.com/JacobRyanWillis/JacobRyanWillis.github.io"
+            target="_blank"
+            class="text-primary hover:underline"
+          >
+            this site is its own case study
+          </NuxtLink>
+        </p>
       </div>
-    </div>
+      <div class="flex items-center gap-1">
+        <UButton
+          :to="content?.settings.github"
+          target="_blank"
+          icon="i-lucide-github"
+          variant="ghost"
+          color="neutral"
+          aria-label="GitHub"
+        />
+        <UButton
+          :to="content?.settings.linkedin"
+          target="_blank"
+          icon="i-lucide-linkedin"
+          variant="ghost"
+          color="neutral"
+          aria-label="LinkedIn"
+        />
+        <UButton
+          :to="`mailto:${content?.settings.email}`"
+          icon="i-lucide-mail"
+          variant="ghost"
+          color="neutral"
+          aria-label="Email"
+        />
+        <UButton
+          :to="content?.settings.resume"
+          icon="i-lucide-file-down"
+          variant="ghost"
+          color="neutral"
+          aria-label="Resume PDF"
+        />
+      </div>
+    </UContainer>
   </footer>
 </template>

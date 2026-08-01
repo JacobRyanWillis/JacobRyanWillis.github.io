@@ -1,114 +1,172 @@
 <script setup lang="ts">
-import { site } from '~/data/site'
-import { projects } from '~/data/projects'
-
 const route = useRoute()
-const project = projects.find((p) => p.slug === route.params.slug)
+const { data: content } = await usePortfolioContent()
+const { attr, enable } = useVisualEditing()
 
-if (!project) {
+const sorted = computed(() => [...(content.value?.projects ?? [])].sort((a, b) => a.sort - b.sort))
+const project = computed(() => sorted.value.find((p) => p.slug === route.params.slug))
+
+if (!project.value) {
   throw createError({ statusCode: 404, statusMessage: 'Project not found', fatal: true })
 }
 
-const index = projects.indexOf(project)
-const prev = projects[index - 1]
-const next = projects[index + 1]
+const index = computed(() => sorted.value.findIndex((p) => p.slug === route.params.slug))
+const prev = computed(() => sorted.value[index.value - 1])
+const next = computed(() => sorted.value[index.value + 1])
 
 useSeoMeta({
-  title: project.title,
-  description: project.summary,
-  ogTitle: `${project.title} · Jacob Willis`,
-  ogDescription: project.summary,
+  title: () => project.value?.title,
+  description: () => project.value?.summary,
+  ogTitle: () => `${project.value?.title} · Jacob Willis`,
+  ogDescription: () => project.value?.summary,
 })
 
 useHead({
-  link: [{ rel: 'canonical', href: `${site.url}/projects/${project.slug}` }],
+  link: [
+    {
+      rel: 'canonical',
+      href: `${content.value?.settings.url}/projects/${project.value?.slug}`,
+    },
+  ],
 })
+
+enable()
 </script>
 
 <template>
-  <article v-if="project" class="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-20">
-    <NuxtLink
-      to="/#projects"
-      class="text-sm font-medium text-accent-700 transition hover:text-accent-600 dark:text-accent-400 dark:hover:text-accent-300"
-    >
-      ← All projects
-    </NuxtLink>
-
-    <header class="mt-6">
-      <p v-if="project.featured" class="font-mono text-sm text-accent-700 dark:text-accent-400">
-        {{ project.featured }}
-      </p>
-      <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-        {{ project.title }}
-      </h1>
-      <p class="mt-3 text-lg text-slate-600 dark:text-slate-300">{{ project.subtitle }}</p>
-    </header>
-
-    <div class="mt-8 flex flex-wrap gap-1.5">
-      <span
-        v-for="tech in project.stack"
-        :key="tech"
-        class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+  <article v-if="project">
+    <UContainer class="max-w-3xl py-16 sm:py-20">
+      <UButton
+        to="/#projects"
+        icon="i-lucide-arrow-left"
+        variant="link"
+        color="primary"
+        class="px-0"
       >
-        {{ tech }}
-      </span>
-    </div>
+        All projects
+      </UButton>
 
-    <section class="mt-10">
-      <h2 class="text-sm font-semibold tracking-widest text-accent-600 uppercase dark:text-accent-400">
-        The problem
-      </h2>
-      <p class="mt-3 leading-relaxed text-slate-600 dark:text-slate-300">{{ project.problem }}</p>
-    </section>
-
-    <section class="mt-10">
-      <h2 class="text-sm font-semibold tracking-widest text-accent-600 uppercase dark:text-accent-400">
-        Architecture
-      </h2>
-      <ul class="mt-3 space-y-3">
-        <li
-          v-for="(point, i) in project.architecture"
-          :key="i"
-          class="flex gap-3 leading-relaxed text-slate-600 dark:text-slate-300"
+      <header class="mt-6">
+        <p v-if="project.featured" class="font-mono text-sm text-primary">
+          {{ project.featured }}
+        </p>
+        <h1
+          class="mt-2 text-3xl font-bold tracking-tight text-highlighted sm:text-4xl"
+          :data-directus="attr({ collection: 'projects', item: project.id, fields: 'title,subtitle,summary' })"
         >
-          <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" aria-hidden="true" />
-          <span>{{ point }}</span>
-        </li>
-      </ul>
-    </section>
+          {{ project.title }}
+        </h1>
+        <p class="mt-3 text-lg text-toned">{{ project.subtitle }}</p>
+      </header>
 
-    <section class="mt-10">
-      <h2 class="text-sm font-semibold tracking-widest text-accent-600 uppercase dark:text-accent-400">
-        Outcome
-      </h2>
-      <ul class="mt-3 space-y-3">
-        <li
-          v-for="(point, i) in project.outcomes"
-          :key="i"
-          class="flex gap-3 leading-relaxed text-slate-600 dark:text-slate-300"
+      <div class="mt-8 flex flex-wrap gap-1.5">
+        <UBadge
+          v-for="tech in project.stack"
+          :key="tech"
+          :label="tech"
+          color="neutral"
+          variant="soft"
+        />
+      </div>
+
+      <img
+        v-if="project.image"
+        :src="project.image"
+        :alt="`${project.title} screenshot`"
+        class="mt-8 w-full rounded-xl border border-default"
+      >
+
+      <UAlert
+        v-if="project.callout"
+        class="mt-8"
+        icon="i-lucide-eye"
+        color="primary"
+        variant="subtle"
+        :description="project.callout"
+      />
+
+      <section class="mt-12">
+        <h2 class="flex items-center gap-2 text-sm font-semibold tracking-widest text-primary uppercase">
+          <UIcon name="i-lucide-target" class="size-4" />
+          The problem
+        </h2>
+        <p
+          class="mt-3 leading-relaxed text-toned"
+          :data-directus="attr({ collection: 'projects', item: project.id, fields: 'problem' })"
         >
-          <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" aria-hidden="true" />
-          <span>{{ point }}</span>
-        </li>
-      </ul>
-    </section>
+          {{ project.problem }}
+        </p>
+      </section>
 
-    <nav class="mt-14 flex justify-between gap-4 border-t border-slate-200 pt-6 text-sm dark:border-slate-800">
-      <NuxtLink
-        v-if="prev"
-        :to="`/projects/${prev.slug}`"
-        class="font-medium text-accent-700 transition hover:text-accent-600 dark:text-accent-400 dark:hover:text-accent-300"
-      >
-        ← {{ prev.title }}
-      </NuxtLink>
-      <span v-else />
-      <NuxtLink
-        v-if="next"
-        :to="`/projects/${next.slug}`"
-        class="text-right font-medium text-accent-700 transition hover:text-accent-600 dark:text-accent-400 dark:hover:text-accent-300"
-      >
-        {{ next.title }} →
-      </NuxtLink>
-    </nav>
+      <section class="mt-12">
+        <h2 class="flex items-center gap-2 text-sm font-semibold tracking-widest text-primary uppercase">
+          <UIcon name="i-lucide-layers" class="size-4" />
+          Architecture
+        </h2>
+        <ul
+          class="mt-3 space-y-3"
+          :data-directus="attr({ collection: 'projects', item: project.id, fields: 'architecture' })"
+        >
+          <li
+            v-for="(point, i) in project.architecture"
+            :key="i"
+            class="flex gap-3 leading-relaxed text-toned"
+          >
+            <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+            <span>{{ point }}</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="flex items-center gap-2 text-sm font-semibold tracking-widest text-primary uppercase">
+          <UIcon name="i-lucide-trending-up" class="size-4" />
+          Outcome
+        </h2>
+        <ul
+          class="mt-3 space-y-3"
+          :data-directus="attr({ collection: 'projects', item: project.id, fields: 'outcomes' })"
+        >
+          <li
+            v-for="(point, i) in project.outcomes"
+            :key="i"
+            class="flex gap-3 leading-relaxed text-toned"
+          >
+            <UIcon name="i-lucide-check" class="mt-1 size-4 shrink-0 text-primary" />
+            <span>{{ point }}</span>
+          </li>
+        </ul>
+      </section>
+
+      <nav class="mt-16 grid gap-4 border-t border-default pt-8 sm:grid-cols-2">
+        <NuxtLink
+          v-if="prev"
+          :to="`/projects/${prev.slug}`"
+          class="group rounded-xl border border-default p-4 transition hover:border-accent-300 dark:hover:border-accent-800"
+        >
+          <p class="flex items-center gap-1 text-xs text-muted">
+            <UIcon name="i-lucide-arrow-left" class="size-3.5" />
+            Previous
+          </p>
+          <p class="mt-1 text-sm font-medium text-highlighted group-hover:text-primary">
+            {{ prev.title }}
+          </p>
+        </NuxtLink>
+        <span v-else class="hidden sm:block" />
+        <NuxtLink
+          v-if="next"
+          :to="`/projects/${next.slug}`"
+          class="group rounded-xl border border-default p-4 text-right transition hover:border-accent-300 dark:hover:border-accent-800"
+        >
+          <p class="flex items-center justify-end gap-1 text-xs text-muted">
+            Next
+            <UIcon name="i-lucide-arrow-right" class="size-3.5" />
+          </p>
+          <p class="mt-1 text-sm font-medium text-highlighted group-hover:text-primary">
+            {{ next.title }}
+          </p>
+        </NuxtLink>
+      </nav>
+    </UContainer>
   </article>
 </template>
