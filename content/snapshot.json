@@ -594,6 +594,41 @@
           }
         },
         {
+          "id": "bbbb0000-0000-4000-8000-000000000007",
+          "collection": "block_testimonials",
+          "sort": 6,
+          "item": {
+            "id": "b10c0000-0000-4000-8000-000000000010",
+            "eyebrow": "Kind words",
+            "heading": "What people say about me",
+            "quotes": [
+              {
+                "quote": "Jacob built the analytics hub that finally put every channel in one place. What used to take me a morning of spreadsheet exports now takes thirty seconds.",
+                "name": "Sarah",
+                "role": "Marketing Team (placeholder)"
+              },
+              {
+                "quote": "Every time we ask for a tool, it shows up a week later working better than we imagined. The batch contact upload alone saves us hours every week.",
+                "name": "Mark",
+                "role": "Contacts Team (placeholder)"
+              },
+              {
+                "quote": "He rebuilt our commenting system mid-flight with zero downtime — moderation went from a chore we dreaded to a two-minute job.",
+                "name": "Elise",
+                "role": "Editorial (placeholder)"
+              },
+              {
+                "quote": "The receipt scanner felt like magic the first time a receipt filled itself in. Our whole team actually uses it, which says everything.",
+                "name": "David",
+                "role": "Events Team (placeholder)"
+              }
+            ],
+            "bg_image": null,
+            "bg_color": "",
+            "bg_opacity": 25
+          }
+        },
+        {
           "id": "bbbb0000-0000-4000-8000-000000000006",
           "collection": "block_cta",
           "sort": 7,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Page } from '~/types/content'
-import { BlockHero, BlockMetrics, BlockAbout, BlockProjects, BlockSkills, BlockCta, BlockSection, BlockEmbed } from '#components'
+import { BlockHero, BlockMetrics, BlockAbout, BlockProjects, BlockSkills, BlockCta, BlockSection, BlockEmbed, BlockTestimonials } from '#components'
 
 const props = defineProps<{ page: Page }>()
 
@@ -17,6 +17,7 @@ const blockMap: Record<string, unknown> = {
   block_cta: BlockCta,
   block_section: BlockSection,
   block_embed: BlockEmbed,
+  block_testimonials: BlockTestimonials,
 }
 
 const blocks = computed(() =>
