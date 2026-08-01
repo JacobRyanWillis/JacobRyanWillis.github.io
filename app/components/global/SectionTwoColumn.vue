@@ -1,11 +1,18 @@
 <script setup lang="ts">
-defineProps<{ item: Record<string, any> }>()
+const props = defineProps<{ item: Record<string, any> }>()
 
 const { attr } = useVisualEditing()
+
+// Keep the classic muted band unless the editor picked a background.
+const shellItem = computed(() =>
+  props.item.bg_color || props.item.bg_image
+    ? props.item
+    : { ...props.item, bg_color: 'border-t border-default bg-elevated/50' },
+)
 </script>
 
 <template>
-  <section class="border-t border-default bg-elevated/50">
+  <SectionShell :item="shellItem">
     <UContainer class="grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-2">
       <div :data-directus="attr({ collection: 'block_section', item: item.id, fields: 'headline,title,body,links' })">
         <p v-if="item.headline" class="text-sm font-semibold tracking-widest text-primary uppercase">
@@ -36,5 +43,5 @@ const { attr } = useVisualEditing()
         Add an image in Directus
       </div>
     </UContainer>
-  </section>
+  </SectionShell>
 </template>

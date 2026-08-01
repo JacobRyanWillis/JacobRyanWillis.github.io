@@ -84,16 +84,15 @@ const snapshot = {
       title: page.title,
       description: page.description,
       blocks: await Promise.all(
-        page.blocks.map(async (block) => ({
-          id: block.id,
-          collection: block.collection,
-          sort: block.sort,
-          // Blocks may carry an image file (e.g. block_section) — localize it
-          // the same way project images are.
-          item: block.item?.image
-            ? { ...block.item, image: await localizeFile(block.item.image) }
-            : block.item,
-        })),
+        page.blocks.map(async (block) => {
+          // Blocks may carry image files (content image, background image) —
+          // localize them the same way project images are.
+          const item = { ...block.item }
+          for (const key of ['image', 'bg_image']) {
+            if (item[key]) item[key] = await localizeFile(item[key])
+          }
+          return { id: block.id, collection: block.collection, sort: block.sort, item }
+        }),
       ),
     })),
   ),

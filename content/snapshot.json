@@ -527,7 +527,9 @@
                 "size": "lg",
                 "target": "_blank"
               }
-            ]
+            ],
+            "bg_image": null,
+            "bg_opacity": 30
           }
         },
         {

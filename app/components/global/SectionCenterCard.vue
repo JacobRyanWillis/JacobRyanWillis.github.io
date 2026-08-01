@@ -5,7 +5,7 @@ const { attr } = useVisualEditing()
 </script>
 
 <template>
-  <section>
+  <SectionShell :item="item">
     <UContainer class="py-16 sm:py-20">
       <div
         class="relative mx-auto max-w-2xl overflow-hidden rounded-2xl border border-accent-200 bg-default p-8 text-center sm:p-12 dark:border-accent-900"
@@ -39,5 +39,5 @@ const { attr } = useVisualEditing()
         </div>
       </div>
     </UContainer>
-  </section>
+  </SectionShell>
 </template>

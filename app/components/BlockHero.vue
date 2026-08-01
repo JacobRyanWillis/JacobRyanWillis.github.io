@@ -7,6 +7,16 @@ const { attr } = useVisualEditing()
 
 <template>
   <section class="relative overflow-hidden">
+    <div v-if="item.bg_image" class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <img
+        :src="item.bg_image"
+        alt=""
+        class="h-full w-full object-cover"
+        :style="{ opacity: String((item.bg_opacity ?? 30) / 100) }"
+      >
+      <!-- Fade the image toward the text edge so the hero copy stays readable -->
+      <div class="absolute inset-0 bg-linear-to-r from-default via-default/70 to-transparent" />
+    </div>
     <div
       class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--color-accent-100),transparent_55%)] dark:bg-[radial-gradient(ellipse_at_top_right,var(--color-accent-950),transparent_55%)]"
       aria-hidden="true"

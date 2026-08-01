@@ -41,10 +41,12 @@ export function usePortfolioContent() {
 
     const projects = rawProjects.map((p) => ({ ...p, image: asset(p.image) })) as Snapshot['projects']
 
-    // Block items may carry image files too (block_section) — same mapping.
+    // Block items may carry image files too (content and background) — same mapping.
     for (const page of pages) {
       for (const block of page.blocks) {
-        if (block.item?.image) block.item.image = asset(block.item.image)
+        for (const key of ['image', 'bg_image']) {
+          if (block.item?.[key]) block.item[key] = asset(block.item[key])
+        }
       }
     }
 

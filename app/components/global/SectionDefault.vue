@@ -5,7 +5,7 @@ const { attr } = useVisualEditing()
 </script>
 
 <template>
-  <section>
+  <SectionShell :item="item">
     <UContainer class="py-16 sm:py-20">
       <div :data-directus="attr({ collection: 'block_section', item: item.id, fields: 'headline,title,body' })">
         <p v-if="item.headline" class="text-sm font-semibold tracking-widest text-primary uppercase">
@@ -34,5 +34,5 @@ const { attr } = useVisualEditing()
         <BlockLinks :links="item.links" />
       </div>
     </UContainer>
-  </section>
+  </SectionShell>
 </template>
