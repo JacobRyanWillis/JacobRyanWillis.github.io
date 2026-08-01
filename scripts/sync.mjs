@@ -75,6 +75,7 @@ const snapshot = {
       callout: p.callout,
       image: await localizeFile(p.image),
       demo_video: p.demo_video ?? null,
+      site_url: p.site_url ?? null,
       sort: p.sort,
     })),
   ),

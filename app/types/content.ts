@@ -43,6 +43,7 @@ export interface Project {
   callout: string | null
   image: string | null
   demo_video: string | null
+  site_url: string | null
   sort: number
 }
 

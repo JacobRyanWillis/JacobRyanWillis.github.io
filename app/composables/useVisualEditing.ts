@@ -20,8 +20,11 @@ export function useVisualEditing() {
   const enabled = Boolean(directusUrl)
   const active = useState('visual-editing-active', () => false)
 
+  // Always emitted, even in snapshot mode where the editing overlay never
+  // loads: the block X-ray reads these same attributes to label every
+  // editable field, so the X-ray can never drift from what the visual
+  // editor actually exposes.
   function attr(options: EditAttrOptions): string | undefined {
-    if (!enabled) return undefined
     const parts = [
       `collection:${options.collection}`,
       `item:${options.item}`,

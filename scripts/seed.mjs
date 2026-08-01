@@ -14,7 +14,7 @@ import { login, api, apiUpload } from './directus.mjs'
 
 const snapshot = JSON.parse(await readFile(new URL('../content/snapshot.json', import.meta.url), 'utf8'))
 
-const BLOCK_COLLECTIONS = ['block_hero', 'block_metrics', 'block_about', 'block_projects', 'block_skills', 'block_cta', 'block_section', 'block_embed']
+const BLOCK_COLLECTIONS = ['block_hero', 'block_metrics', 'block_about', 'block_projects', 'block_skills', 'block_cta', 'block_section', 'block_embed', 'block_testimonials']
 const BLUE = '#3399FF'
 
 const uuidPk = { field: 'id', type: 'uuid', meta: { special: ['uuid'], readonly: true, hidden: true }, schema: { is_primary_key: true } }
@@ -253,6 +253,35 @@ const collections = [
       str('caption', { sort: 3 }),
     ],
   },
+  {
+    collection: 'block_testimonials',
+    meta: { hidden: true, group: 'pages', sort: 10, icon: 'format_quote', note: 'Quote carousel — what colleagues say', display_template: '{{heading}}' },
+    fields: [
+      uuidPk,
+      str('eyebrow', { sort: 1, width: 'half' }),
+      str('heading', { sort: 2, width: 'half', required: true }),
+      {
+        field: 'quotes',
+        type: 'json',
+        meta: {
+          special: ['cast-json'],
+          interface: 'list',
+          sort: 3,
+          options: {
+            template: '{{ name }} — {{ quote }}',
+            fields: [
+              { field: 'quote', name: 'quote', type: 'text', meta: { field: 'quote', type: 'text', interface: 'input-multiline', width: 'full', required: true } },
+              { field: 'name', name: 'name', type: 'string', meta: { field: 'name', type: 'string', interface: 'input', width: 'half', required: true } },
+              { field: 'role', name: 'role', type: 'string', meta: { field: 'role', type: 'string', interface: 'input', width: 'half', note: 'Team or role — shown under the name.' } },
+            ],
+          },
+          note: 'The quotes in the carousel.',
+        },
+        schema: {},
+      },
+      ...stylingFields(9),
+    ],
+  },
 
   // ── Content collections ────────────────────────────────────────────────
   {
@@ -272,6 +301,7 @@ const collections = [
       text('callout', { sort: 10, note: 'Optional highlight box on the case study page.' }),
       { field: 'image', type: 'uuid', meta: { interface: 'file-image', special: ['file'], sort: 11, note: 'Optional screenshot — synced into the repo by cms:sync.' }, schema: {} },
       str('demo_video', { sort: 12, note: 'YouTube URL — renders the Demo section on the case study page.' }),
+      str('site_url', { sort: 13, note: 'Public URL of the live system — shown as a visit link on the case study page.' }),
       int('sort'),
     ],
   },

@@ -69,7 +69,9 @@ html {
 
 /* ── Block X-ray ───────────────────────────────────────────────────────────
    When <html> has .xray, every page block shows its Directus anatomy:
-   dashed outline + a mono chip naming the collection and sort order. */
+   dashed outline + a mono chip naming the collection and sort order, and
+   every editable element (parsed from the visual editor's data-directus
+   attributes by useXray) gets an amber chip listing its fields. */
 .xray [data-xray] {
   position: relative;
   outline: 2px dashed --alpha(var(--color-accent-500) / 60%);
@@ -90,4 +92,27 @@ html {
   color: white;
   background: var(--color-accent-700);
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+}
+
+/* Field-level labels: one chip per editable element, straight from the
+   visual editor's field declarations. */
+.xray [data-xray-field] {
+  outline: 1px dashed --alpha(var(--color-warm-500) / 50%);
+  outline-offset: 4px;
+}
+.xray [data-xray-field]::before {
+  content: attr(data-xray-field);
+  display: table;
+  margin-bottom: 0.35rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  white-space: normal;
+  color: var(--color-accent-950);
+  background: var(--color-warm-400);
 }

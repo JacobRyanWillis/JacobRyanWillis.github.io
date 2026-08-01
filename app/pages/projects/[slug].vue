@@ -10,6 +10,14 @@ if (!project.value) {
   throw createError({ statusCode: 404, statusMessage: 'Project not found', fatal: true })
 }
 
+const siteHost = computed(() => {
+  try {
+    return project.value?.site_url ? new URL(project.value.site_url).hostname.replace(/^www\./, '') : null
+  } catch {
+    return null
+  }
+})
+
 const index = computed(() => sorted.value.findIndex((p) => p.slug === route.params.slug))
 const prev = computed(() => sorted.value[index.value - 1])
 const next = computed(() => sorted.value[index.value + 1])
@@ -66,6 +74,19 @@ enable()
         >
           {{ project.subtitle }}
         </p>
+        <UButton
+          v-if="project.site_url && siteHost"
+          :to="project.site_url"
+          target="_blank"
+          icon="i-lucide-external-link"
+          variant="subtle"
+          color="primary"
+          size="sm"
+          class="mt-4"
+          :data-directus="attr({ collection: 'projects', item: project.id, fields: 'site_url' })"
+        >
+          See it live — {{ siteHost }}
+        </UButton>
       </header>
 
       <div
