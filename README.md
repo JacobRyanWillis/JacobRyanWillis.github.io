@@ -71,6 +71,14 @@ Other notes:
   (navy/accent-blue/amber schematics), stored in Directus like every other asset, and
   synced into the repo by `cms:sync`.
 
+## How it was built
+
+This site was built AI-assisted — the same way I build internal tooling at work. I designed
+the architecture and the block system, directed coding agents against it, and reviewed every
+diff before it shipped through CI. The speed came from fundamentals that were already
+decided, not from skipping the review — the content round-trip above exists precisely so
+that everything on this site, prose included, goes through a normal code review.
+
 ## Development
 
 ```bash
