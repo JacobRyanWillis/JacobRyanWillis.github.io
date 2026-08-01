@@ -18,12 +18,12 @@ const { attr } = useVisualEditing()
     />
 
     <!-- Cover: screenshot when set in Directus, terminal-path banner until then -->
-    <div class="relative aspect-[2.4/1] overflow-hidden border-b border-default">
+    <div class="relative aspect-[2/1] overflow-hidden border-b border-default">
       <img
         v-if="project.image"
         :src="project.image"
         :alt="`${project.title} screenshot`"
-        class="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
+        class="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
         loading="lazy"
       >
       <div
