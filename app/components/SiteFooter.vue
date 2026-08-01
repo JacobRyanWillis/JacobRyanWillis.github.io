@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { data: content } = await usePortfolioContent()
+const { attr } = useVisualEditing()
 
 const year = new Date().getFullYear()
 </script>
@@ -8,7 +9,9 @@ const year = new Date().getFullYear()
   <footer class="border-t border-default py-10">
     <UContainer class="flex flex-col items-center justify-between gap-6 sm:flex-row">
       <div class="text-center text-sm text-muted sm:text-left">
-        <p>© {{ year }} {{ content?.settings.name }} · {{ content?.settings.location }}</p>
+        <p :data-directus="attr({ collection: 'site_settings', item: content?.settings.id ?? '', fields: 'name,location' })">
+          © {{ year }} {{ content?.settings.name }} · {{ content?.settings.location }}
+        </p>
         <p class="mt-1">
           Built with Nuxt, Nuxt UI &amp; Directus —
           <NuxtLink

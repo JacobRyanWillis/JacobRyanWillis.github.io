@@ -6,6 +6,16 @@ const ADMIN_PASSWORD = process.env.DIRECTUS_ADMIN_PASSWORD ?? 'portfolio'
 
 let token
 
+export async function apiUpload(formData) {
+  const res = await fetch(`${DIRECTUS_URL}/files`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: formData,
+  })
+  if (!res.ok) throw new Error(`POST /files failed (${res.status}): ${await res.text()}`)
+  return (await res.json()).data
+}
+
 export async function login() {
   const res = await fetch(`${DIRECTUS_URL}/auth/login`, {
     method: 'POST',

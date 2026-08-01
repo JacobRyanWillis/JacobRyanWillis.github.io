@@ -47,19 +47,31 @@ enable()
       </UButton>
 
       <header class="mt-6">
-        <p v-if="project.featured" class="font-mono text-sm text-primary">
+        <p
+          v-if="project.featured"
+          class="font-mono text-sm text-primary"
+          :data-directus="attr({ collection: 'projects', item: project.id, fields: 'featured' })"
+        >
           {{ project.featured }}
         </p>
         <h1
           class="mt-2 text-3xl font-bold tracking-tight text-highlighted sm:text-4xl"
-          :data-directus="attr({ collection: 'projects', item: project.id, fields: 'title,subtitle,summary' })"
+          :data-directus="attr({ collection: 'projects', item: project.id, fields: 'title' })"
         >
           {{ project.title }}
         </h1>
-        <p class="mt-3 text-lg text-toned">{{ project.subtitle }}</p>
+        <p
+          class="mt-3 text-lg text-toned"
+          :data-directus="attr({ collection: 'projects', item: project.id, fields: 'subtitle' })"
+        >
+          {{ project.subtitle }}
+        </p>
       </header>
 
-      <div class="mt-8 flex flex-wrap gap-1.5">
+      <div
+        class="mt-8 flex flex-wrap gap-1.5"
+        :data-directus="attr({ collection: 'projects', item: project.id, fields: 'stack' })"
+      >
         <UBadge
           v-for="tech in project.stack"
           :key="tech"
@@ -83,6 +95,7 @@ enable()
         color="primary"
         variant="subtle"
         :description="project.callout"
+        :data-directus="attr({ collection: 'projects', item: project.id, fields: 'callout' })"
       />
 
       <section class="mt-12">

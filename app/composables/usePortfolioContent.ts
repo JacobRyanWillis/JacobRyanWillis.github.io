@@ -18,15 +18,28 @@ export function usePortfolioContent() {
     const items = <T>(path: string) =>
       $fetch<{ data: T }>(`/items/${path}`, { baseURL: directusUrl }).then((r) => r.data)
 
-    const [settings, metrics, skill_groups, projects, pages] = await Promise.all([
-      items<Snapshot['settings']>('site_settings'),
+    const [rawSettings, metrics, skill_groups, rawProjects, pages] = await Promise.all([
+      items<Record<string, any>>('site_settings'),
       items<Snapshot['metrics']>('metrics?sort=sort'),
       items<Snapshot['skill_groups']>('skill_groups?sort=sort'),
-      items<Snapshot['projects']>('projects?sort=sort'),
+      items<Record<string, any>[]>('projects?sort=sort'),
       items<Snapshot['pages']>(
         'pages?fields=id,slug,title,description,blocks.id,blocks.collection,blocks.sort,blocks.item.*&deep[blocks][_sort]=sort',
       ),
     ])
+
+    // Live mode returns Directus file ids; the snapshot stores local paths
+    // (written by cms:sync). Map ids to asset URLs so both modes match.
+    const asset = (fileId?: string | null, download = false) =>
+      fileId ? `${directusUrl}/assets/${fileId}${download ? '?download' : ''}` : null
+
+    const settings = {
+      ...rawSettings,
+      resume: asset(rawSettings.resume_file, true),
+      headshot: asset(rawSettings.headshot),
+    } as Snapshot['settings']
+
+    const projects = rawProjects.map((p) => ({ ...p, image: asset(p.image) })) as Snapshot['projects']
 
     return { settings, metrics, skill_groups, projects, pages }
   })

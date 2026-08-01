@@ -2,12 +2,15 @@
 import type { Project } from '~/types/content'
 
 defineProps<{ project: Project }>()
+
+const { attr } = useVisualEditing()
 </script>
 
 <template>
   <NuxtLink
     :to="`/projects/${project.slug}`"
     class="group relative flex h-full flex-col overflow-hidden rounded-xl border border-default bg-default p-6 transition duration-200 hover:-translate-y-0.5 hover:border-accent-300 hover:shadow-lg hover:shadow-accent-100/50 dark:hover:border-accent-800 dark:hover:shadow-accent-950/50"
+    :data-directus="attr({ collection: 'projects', item: project.id, fields: 'title,subtitle,summary,featured,stack' })"
   >
     <div
       class="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-accent-600 to-accent-300 opacity-0 transition-opacity duration-200 group-hover:opacity-100"

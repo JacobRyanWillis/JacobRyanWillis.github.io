@@ -8,7 +8,8 @@
     "email": "jacobwillis2012@gmail.com",
     "github": "https://github.com/JacobRyanWillis",
     "linkedin": "https://www.linkedin.com/in/jacobryanwillis",
-    "resume": "/Jacob_Willis_Resume_2026.pdf",
+    "resume": "/files/Jacob_Willis_Resume_2026.pdf",
+    "headshot": null,
     "url": "https://jacobryanwillis.github.io",
     "summary": "Full-stack developer specializing in Vue/Nuxt, Node.js, headless CMS architecture, and AI-powered internal tooling, with nearly three years designing, shipping, and owning production systems at scale. Comfortable owning projects end-to-end — from database design and API architecture to responsive frontends and CMS integrations.",
     "private_work_note": "Most of my production work lives in my employer's private organization repos, so my public GitHub undersells what I build day to day. This site — and its repo — is my public code sample: it runs on the same architecture I build professionally, right down to the Directus page-block system rendering this page. I'm happy to walk through architecture decisions, code samples, or demos from any of these projects in an interview."
@@ -350,7 +351,36 @@
             "badge": "Open to full-stack roles",
             "heading": "Jacob Willis",
             "subheading": "Full-Stack Developer · Vue/Nuxt · Node.js · Directus · AI tooling",
-            "body": "I design, ship, and own production systems end-to-end — a content platform serving millions of monthly visitors, an email system reaching 100K+ daily subscribers, and AI tools that eliminated manual data entry across teams."
+            "body": "I design, ship, and own production systems end-to-end — a content platform serving millions of monthly visitors, an email system reaching 100K+ daily subscribers, and AI tools that eliminated manual data entry across teams.",
+            "links": [
+              {
+                "label": "Download Resume",
+                "to": "/files/Jacob_Willis_Resume_2026.pdf",
+                "icon": "i-lucide-file-down",
+                "color": "primary",
+                "variant": "solid",
+                "size": "lg",
+                "target": null
+              },
+              {
+                "label": "GitHub",
+                "to": "https://github.com/JacobRyanWillis",
+                "icon": "i-lucide-github",
+                "color": "neutral",
+                "variant": "outline",
+                "size": "lg",
+                "target": "_blank"
+              },
+              {
+                "label": "LinkedIn",
+                "to": "https://www.linkedin.com/in/jacobryanwillis",
+                "icon": "i-lucide-linkedin",
+                "color": "neutral",
+                "variant": "outline",
+                "size": "lg",
+                "target": "_blank"
+              }
+            ]
           }
         },
         {
@@ -403,7 +433,27 @@
             "id": "b10c0000-0000-4000-8000-000000000006",
             "eyebrow": "Contact",
             "heading": "Let's talk",
-            "body": "I'm looking for my next full-stack role. If you'd like to walk through any of these systems — architecture decisions, code samples, or demos — reach out."
+            "body": "I'm looking for my next full-stack role. If you'd like to walk through any of these systems — architecture decisions, code samples, or demos — reach out.",
+            "links": [
+              {
+                "label": "jacobwillis2012@gmail.com",
+                "to": "mailto:jacobwillis2012@gmail.com",
+                "icon": "i-lucide-mail",
+                "color": "primary",
+                "variant": "solid",
+                "size": "lg",
+                "target": null
+              },
+              {
+                "label": "LinkedIn",
+                "to": "https://www.linkedin.com/in/jacobryanwillis",
+                "icon": "i-lucide-linkedin",
+                "color": "neutral",
+                "variant": "outline",
+                "size": "lg",
+                "target": "_blank"
+              }
+            ]
           }
         }
       ]

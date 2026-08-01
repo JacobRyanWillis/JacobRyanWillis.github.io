@@ -12,7 +12,7 @@ const { attr } = useVisualEditing()
       aria-hidden="true"
     />
     <div
-      class="pointer-events-none absolute inset-0 bg-[radial-gradient(var(--ui-border)_1px,transparent_1px)] [background-size:24px_24px] opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_75%)]"
+      class="pointer-events-none absolute inset-0 bg-[radial-gradient(var(--ui-border)_1px,transparent_1px)] bg-size-[24px_24px] opacity-40 mask-[radial-gradient(ellipse_at_center,black_20%,transparent_75%)]"
       aria-hidden="true"
     />
     <UContainer class="relative pt-24 pb-20 sm:pt-32 sm:pb-28">
@@ -27,11 +27,14 @@ const { attr } = useVisualEditing()
       />
       <h1
         class="mt-6 text-4xl font-bold tracking-tight text-highlighted sm:text-6xl"
-        :data-directus="attr({ collection: 'block_hero', item: item.id, fields: 'heading,subheading' })"
+        :data-directus="attr({ collection: 'block_hero', item: item.id, fields: 'heading' })"
       >
         {{ item.heading }}
       </h1>
-      <p class="mt-4 bg-linear-to-r from-accent-700 to-accent-400 bg-clip-text text-xl font-semibold text-transparent sm:text-2xl dark:from-accent-300 dark:to-accent-500">
+      <p
+        class="mt-4 bg-linear-to-r from-accent-700 to-accent-400 bg-clip-text text-xl font-semibold text-transparent sm:text-2xl dark:from-accent-300 dark:to-accent-500"
+        :data-directus="attr({ collection: 'block_hero', item: item.id, fields: 'subheading' })"
+      >
         {{ item.subheading }}
       </p>
       <p
@@ -41,30 +44,16 @@ const { attr } = useVisualEditing()
         {{ item.body }}
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-3">
-        <UButton :to="content?.settings.resume" icon="i-lucide-file-down" size="lg">
-          Download Resume
-        </UButton>
-        <UButton
-          :to="content?.settings.github"
-          target="_blank"
-          icon="i-lucide-github"
-          size="lg"
-          color="neutral"
-          variant="outline"
+        <span
+          class="contents"
+          :data-directus="attr({ collection: 'block_hero', item: item.id, fields: 'links' })"
         >
-          GitHub
-        </UButton>
-        <UButton
-          :to="content?.settings.linkedin"
-          target="_blank"
-          icon="i-lucide-linkedin"
-          size="lg"
-          color="neutral"
-          variant="outline"
+          <BlockLinks :links="item.links" />
+        </span>
+        <span
+          class="ml-1 inline-flex items-center gap-1.5 text-sm text-muted"
+          :data-directus="attr({ collection: 'site_settings', item: content?.settings.id ?? '', fields: 'location' })"
         >
-          LinkedIn
-        </UButton>
-        <span class="ml-1 inline-flex items-center gap-1.5 text-sm text-muted">
           <UIcon name="i-lucide-map-pin" class="size-4" />
           {{ content?.settings.location }}
         </span>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 defineProps<{ item: Record<string, any> }>()
 
-const { data: content } = await usePortfolioContent()
 const { attr } = useVisualEditing()
 </script>
 
@@ -17,28 +16,29 @@ const { attr } = useVisualEditing()
           aria-hidden="true"
         />
         <div class="relative">
-          <p class="text-sm font-semibold tracking-widest text-primary uppercase">{{ item.eyebrow }}</p>
+          <p
+            class="text-sm font-semibold tracking-widest text-primary uppercase"
+            :data-directus="attr({ collection: 'block_cta', item: item.id, fields: 'eyebrow' })"
+          >
+            {{ item.eyebrow }}
+          </p>
           <h2
             class="mt-2 text-2xl font-bold tracking-tight text-highlighted sm:text-3xl"
-            :data-directus="attr({ collection: 'block_cta', item: item.id, fields: 'heading,body' })"
+            :data-directus="attr({ collection: 'block_cta', item: item.id, fields: 'heading' })"
           >
             {{ item.heading }}
           </h2>
-          <p class="mt-4 max-w-2xl text-toned">{{ item.body }}</p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <UButton :to="`mailto:${content?.settings.email}`" icon="i-lucide-mail" size="lg">
-              {{ content?.settings.email }}
-            </UButton>
-            <UButton
-              :to="content?.settings.linkedin"
-              target="_blank"
-              icon="i-lucide-linkedin"
-              size="lg"
-              color="neutral"
-              variant="outline"
-            >
-              LinkedIn
-            </UButton>
+          <p
+            class="mt-4 max-w-2xl text-toned"
+            :data-directus="attr({ collection: 'block_cta', item: item.id, fields: 'body' })"
+          >
+            {{ item.body }}
+          </p>
+          <div
+            class="mt-8 flex flex-wrap gap-3"
+            :data-directus="attr({ collection: 'block_cta', item: item.id, fields: 'links' })"
+          >
+            <BlockLinks :links="item.links" />
           </div>
         </div>
       </div>

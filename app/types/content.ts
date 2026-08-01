@@ -7,7 +7,8 @@ export interface SiteSettings {
   email: string
   github: string
   linkedin: string
-  resume: string
+  resume: string | null
+  headshot: string | null
   url: string
   summary: string
   private_work_note: string

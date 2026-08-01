@@ -15,7 +15,12 @@ const paragraphs = computed<string[]>(() =>
   <section>
     <UContainer class="py-20 sm:py-24">
       <div id="about" class="scroll-mt-24">
-        <p class="text-sm font-semibold tracking-widest text-primary uppercase">{{ item.eyebrow }}</p>
+        <p
+          class="text-sm font-semibold tracking-widest text-primary uppercase"
+          :data-directus="attr({ collection: 'block_about', item: item.id, fields: 'eyebrow' })"
+        >
+          {{ item.eyebrow }}
+        </p>
         <h2
           class="mt-2 text-2xl font-bold tracking-tight text-highlighted sm:text-3xl"
           :data-directus="attr({ collection: 'block_about', item: item.id, fields: 'heading' })"
@@ -24,7 +29,9 @@ const paragraphs = computed<string[]>(() =>
         </h2>
       </div>
       <div class="mt-6 max-w-3xl space-y-4 text-base leading-relaxed text-toned">
-        <p>{{ content?.settings.summary }}</p>
+        <p :data-directus="attr({ collection: 'site_settings', item: content?.settings.id ?? '', fields: 'summary' })">
+          {{ content?.settings.summary }}
+        </p>
         <p
           v-for="(paragraph, i) in paragraphs"
           :key="i"
@@ -37,6 +44,7 @@ const paragraphs = computed<string[]>(() =>
           color="primary"
           variant="subtle"
           :description="content?.settings.private_work_note"
+          :data-directus="attr({ collection: 'site_settings', item: content?.settings.id ?? '', fields: 'private_work_note' })"
         />
       </div>
     </UContainer>

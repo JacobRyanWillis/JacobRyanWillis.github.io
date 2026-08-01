@@ -10,7 +10,7 @@
 // and setup collections sit in a Setup folder.
 
 import { readFile } from 'node:fs/promises'
-import { login, api } from './directus.mjs'
+import { login, api, apiUpload } from './directus.mjs'
 
 const snapshot = JSON.parse(await readFile(new URL('../content/snapshot.json', import.meta.url), 'utf8'))
 
@@ -23,6 +23,44 @@ const text = (field, meta = {}) => ({ field, type: 'text', meta: { interface: 'i
 const json = (field, meta = {}) => ({ field, type: 'json', meta: { special: ['cast-json'], interface: 'list', ...meta }, schema: {} })
 const int = (field, meta = { hidden: true }) => ({ field, type: 'integer', meta, schema: {} })
 const tabGroup = (field, sort) => ({ field, type: 'alias', meta: { special: ['alias', 'group', 'no-data'], interface: 'group-raw', group: 'tabs', sort }, schema: null })
+
+// Collapsible sections inside a block editor (WARP convention: content / actions)
+const detailGroup = (field, sort, headerIcon, note) => ({
+  field,
+  type: 'alias',
+  meta: { special: ['alias', 'group', 'no-data'], interface: 'group-detail', options: { headerIcon, start: 'open' }, sort, note },
+  schema: null,
+})
+
+const choices = (...values) => values.map(([text, value]) => ({ text, value }))
+const linkSubfield = (field, meta) => ({ field, name: field, type: meta.type ?? 'string', meta: { field, type: meta.type ?? 'string', width: 'half', ...meta } })
+
+// Call-to-action buttons repeater — mirrors WARP's block `links` field,
+// which maps 1:1 onto Nuxt UI button props.
+const linksField = (group) => ({
+  field: 'links',
+  type: 'json',
+  meta: {
+    special: ['cast-json'],
+    interface: 'list',
+    group,
+    sort: 1,
+    note: 'Call-to-action buttons (maps to Nuxt UI UButton props)',
+    options: {
+      template: '{{ label }}',
+      fields: [
+        linkSubfield('label', { interface: 'input', options: { trim: true }, required: true }),
+        linkSubfield('to', { interface: 'input', options: { trim: true }, note: 'Internal path or external URL' }),
+        linkSubfield('icon', { interface: 'input', options: { trim: true }, note: 'Lucide icon name, e.g. i-lucide-arrow-right' }),
+        linkSubfield('color', { interface: 'select-dropdown', options: { choices: choices(['Primary', 'primary'], ['Neutral', 'neutral'], ['Success', 'success'], ['Warning', 'warning'], ['Error', 'error'], ['Info', 'info']) } }),
+        linkSubfield('variant', { interface: 'select-dropdown', options: { choices: choices(['Solid', 'solid'], ['Outline', 'outline'], ['Soft', 'soft'], ['Subtle', 'subtle'], ['Ghost', 'ghost'], ['Link', 'link']) } }),
+        linkSubfield('size', { interface: 'select-dropdown', options: { choices: choices(['XS', 'xs'], ['SM', 'sm'], ['MD', 'md'], ['LG', 'lg'], ['XL', 'xl']) } }),
+        linkSubfield('target', { interface: 'select-dropdown', options: { choices: choices(['Same tab', '_self'], ['New tab', '_blank']) }, note: 'Where to open the link (defaults to same tab)' }),
+      ],
+    },
+  },
+  schema: {},
+})
 
 const collections = [
   // ── Folders ────────────────────────────────────────────────────────────
@@ -51,7 +89,16 @@ const collections = [
   {
     collection: 'block_hero',
     meta: { hidden: true, group: 'pages', sort: 2, icon: 'star', note: 'Hero block', display_template: '{{heading}}' },
-    fields: [uuidPk, str('badge', { width: 'half' }), str('heading', { width: 'half', required: true }), str('subheading'), text('body')],
+    fields: [
+      uuidPk,
+      detailGroup('content', 2, 'article', 'Main content fields for this block'),
+      detailGroup('actions', 3, 'link', 'Call-to-action links'),
+      str('badge', { group: 'content', sort: 1, width: 'half', note: 'Small badge shown above the heading.' }),
+      str('heading', { group: 'content', sort: 2, width: 'half', required: true }),
+      str('subheading', { group: 'content', sort: 3 }),
+      text('body', { group: 'content', sort: 4 }),
+      linksField('actions'),
+    ],
   },
   {
     collection: 'block_metrics',
@@ -76,7 +123,15 @@ const collections = [
   {
     collection: 'block_cta',
     meta: { hidden: true, group: 'pages', sort: 7, icon: 'mail', note: 'Contact CTA block', display_template: '{{heading}}' },
-    fields: [uuidPk, str('eyebrow', { width: 'half' }), str('heading', { width: 'half', required: true }), text('body')],
+    fields: [
+      uuidPk,
+      detailGroup('content', 2, 'article', 'Main content fields for this block'),
+      detailGroup('actions', 3, 'link', 'Call-to-action links'),
+      str('eyebrow', { group: 'content', sort: 1, width: 'half' }),
+      str('heading', { group: 'content', sort: 2, width: 'half', required: true }),
+      text('body', { group: 'content', sort: 3 }),
+      linksField('actions'),
+    ],
   },
 
   // ── Content collections ────────────────────────────────────────────────
@@ -113,19 +168,26 @@ const collections = [
   // ── Setup ──────────────────────────────────────────────────────────────
   {
     collection: 'site_settings',
-    meta: { singleton: true, group: 'Setup', sort: 1, icon: 'tune', note: 'Global site copy and links' },
+    meta: { singleton: true, group: 'Setup', sort: 1, icon: 'tune', note: 'Global site copy, links, and files' },
+    // `resume` (string path) was replaced by the `resume_file` Directus file
+    removedFields: ['resume'],
     fields: [
       uuidPk,
       str('name', { sort: 1, width: 'half' }), str('role', { sort: 2, width: 'half' }),
       str('tagline', { sort: 3, width: 'half' }), str('location', { sort: 4, width: 'half' }),
       str('email', { sort: 5, width: 'half' }), str('github', { sort: 6, width: 'half' }),
-      str('linkedin', { sort: 7, width: 'half' }), str('resume', { sort: 8, width: 'half', note: 'Path to the resume PDF in public/.' }),
-      str('url', { sort: 9, note: 'Canonical site URL (no trailing slash).' }),
-      text('summary', { sort: 10 }),
-      text('private_work_note', { sort: 11, note: 'Shown as the callout in the About section.' }),
+      str('linkedin', { sort: 7, width: 'half' }),
+      { field: 'resume_file', type: 'uuid', meta: { interface: 'file', special: ['file'], sort: 8, width: 'half', note: 'Resume PDF — synced into the repo by cms:sync.' }, schema: {} },
+      { field: 'headshot', type: 'uuid', meta: { interface: 'file-image', special: ['file'], sort: 9, note: 'Avatar photo shown in the site header — synced by cms:sync.' }, schema: {} },
+      str('url', { sort: 10, note: 'Canonical site URL (no trailing slash).' }),
+      text('summary', { sort: 11 }),
+      text('private_work_note', { sort: 12, note: 'Shown as the callout in the About section.' }),
     ],
   },
 ]
+
+// File library folders (name → note for future uploads)
+const FOLDERS = ['Documents', 'Photos', 'Projects']
 
 const relations = [
   {
@@ -170,7 +232,46 @@ async function syncCollection(def) {
       await api(`/fields/${def.collection}/${field.field}`, { method: 'PATCH', body: { meta: field.meta } })
     }
   }
+  for (const field of def.removedFields ?? []) {
+    const current = await api(`/fields/${def.collection}/${field}`, { ok404: true })
+    if (current) {
+      await api(`/fields/${def.collection}/${field}`, { method: 'DELETE' })
+      console.log(`  removed field ${def.collection}.${field}`)
+    }
+  }
   console.log(`  synced collection ${def.collection}`)
+}
+
+async function ensureFolders() {
+  const existing = await api('/folders?limit=-1&fields=id,name')
+  const folders = {}
+  for (const name of FOLDERS) {
+    let folder = existing.find((f) => f.name === name)
+    if (!folder) {
+      folder = await api('/folders', { method: 'POST', body: { name } })
+      console.log(`  created file folder ${name}`)
+    }
+    folders[name] = folder.id
+  }
+  return folders
+}
+
+async function ensureResumeFile(folders) {
+  const RESUME = 'Jacob_Willis_Resume_2026.pdf'
+  const existing = await api(`/files?filter[filename_download][_eq]=${RESUME}&fields=id&limit=1`)
+  let fileId = existing[0]?.id
+  if (!fileId) {
+    const buffer = await readFile(new URL(`../public/files/${RESUME}`, import.meta.url))
+      .catch(() => readFile(new URL(`../public/${RESUME}`, import.meta.url)))
+    const form = new FormData()
+    form.append('folder', folders.Documents)
+    form.append('file', new Blob([buffer], { type: 'application/pdf' }), RESUME)
+    const file = await apiUpload(form)
+    fileId = file.id
+    console.log(`  uploaded ${RESUME} to Documents`)
+  }
+  await api('/items/site_settings', { method: 'PATCH', body: { resume_file: fileId } })
+  console.log('  site_settings.resume_file linked')
 }
 
 async function ensureRelation(rel) {
@@ -225,9 +326,16 @@ console.log('Schema:')
 for (const def of collections) await syncCollection(def)
 for (const rel of relations) await ensureRelation(rel)
 
+console.log('Files:')
+const folders = await ensureFolders()
+
 console.log('Content:')
-await api('/items/site_settings', { method: 'PATCH', body: snapshot.settings })
+// resume + headshot in the snapshot are local paths written by cms:sync —
+// the actual files live in Directus (resume_file / headshot), never re-seeded.
+const { resume, headshot, ...settingsSeed } = snapshot.settings
+await api('/items/site_settings', { method: 'PATCH', body: settingsSeed })
 console.log('  site_settings upserted')
+await ensureResumeFile(folders)
 
 for (const [collection, items] of [
   ['metrics', snapshot.metrics],
