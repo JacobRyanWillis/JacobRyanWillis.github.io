@@ -4,6 +4,8 @@ import { BlockHero, BlockMetrics, BlockAbout, BlockProjects, BlockSkills, BlockC
 
 const props = defineProps<{ page: Page }>()
 
+const { attr } = useVisualEditing()
+
 // The block renderer: each Directus block collection maps to one Vue
 // component — the same pattern that powers Creation.com's pages.
 const blockMap: Record<string, unknown> = {
@@ -26,11 +28,15 @@ const blocks = computed(() =>
 
 <template>
   <div>
-    <component
-      :is="blockMap[block.collection]"
+    <!-- The block-level wrapper gives every section its own edit affordance in
+         the visual editor (whole-block drawer), alongside the field-level ones
+         inside each component — same layering WARP's blocks use. -->
+    <div
       v-for="block in blocks"
       :key="block.id"
-      :item="block.item"
-    />
+      :data-directus="attr({ collection: block.collection, item: block.item.id })"
+    >
+      <component :is="blockMap[block.collection]" :item="block.item" />
+    </div>
   </div>
 </template>
