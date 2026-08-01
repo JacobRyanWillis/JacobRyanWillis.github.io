@@ -14,8 +14,6 @@ useHead({
 useSeoMeta({
   ogSiteName: site.name,
   ogType: 'website',
-  ogImage: `${site.url}/og-banner.png`,
-  twitterCard: 'summary_large_image',
 })
 </script>
 
