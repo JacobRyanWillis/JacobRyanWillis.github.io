@@ -26,9 +26,9 @@ same stack, same conventions, same attention to SEO and performance.
 ## Development
 
 ```bash
-npm install
-npm run dev        # dev server at localhost:3000
-npm run generate   # static build to .output/public
+pnpm install
+pnpm dev        # dev server at localhost:3000
+pnpm generate   # static build to .output/public
 npx serve .output/public
 ```
 
