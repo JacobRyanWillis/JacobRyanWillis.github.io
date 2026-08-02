@@ -145,6 +145,7 @@ const collections = [
       linksField('actions'),
       { field: 'bg_image', type: 'uuid', meta: { interface: 'file-image', special: ['file'], group: 'styling', sort: 1, width: 'half', note: 'Background image behind the hero gradient — synced by cms:sync.' }, schema: {} },
       { field: 'bg_opacity', type: 'integer', meta: { interface: 'slider', group: 'styling', sort: 2, width: 'half', options: { minValue: 0, maxValue: 100, stepInterval: 5, alwaysShowValue: true }, note: 'Background image opacity (%).' }, schema: { default_value: 30 } },
+      { field: 'bg_video', type: 'uuid', meta: { interface: 'file', special: ['file'], group: 'styling', sort: 3, note: 'Background video loop (muted, autoplaying) behind the hero gradient — takes precedence over the image; bg_image doubles as its reduced-motion poster. Synced by cms:sync.' }, schema: {} },
     ],
   },
   {

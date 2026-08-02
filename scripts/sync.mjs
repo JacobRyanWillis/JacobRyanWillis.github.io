@@ -90,7 +90,7 @@ const snapshot = {
           // Blocks may carry image files (content image, background image) —
           // localize them the same way project images are.
           const item = { ...block.item }
-          for (const key of ['image', 'bg_image']) {
+          for (const key of ['image', 'bg_image', 'bg_video']) {
             if (item[key]) item[key] = await localizeFile(item[key])
           }
           return { id: block.id, collection: block.collection, sort: block.sort, item }

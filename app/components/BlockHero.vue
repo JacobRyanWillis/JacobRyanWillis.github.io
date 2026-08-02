@@ -1,20 +1,41 @@
 <script setup lang="ts">
-defineProps<{ item: Record<string, any> }>()
+const props = defineProps<{ item: Record<string, any> }>()
 
 const { data: content } = await usePortfolioContent()
 const { attr } = useVisualEditing()
+
+// Autoplay the background loop only for users who haven't asked for reduced
+// motion — everyone else gets the bg_image (or nothing) as a still fallback.
+const allowMotion = ref(false)
+onMounted(() => {
+  allowMotion.value = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+})
+const showVideo = computed(() => Boolean(props.item.bg_video) && allowMotion.value)
 </script>
 
 <template>
   <section class="relative overflow-hidden">
-    <div v-if="item.bg_image" class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div v-if="showVideo || item.bg_image" class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <video
+        v-if="showVideo"
+        :src="item.bg_video"
+        :poster="item.bg_image ?? undefined"
+        autoplay
+        muted
+        loop
+        playsinline
+        disablepictureinpicture
+        class="h-full w-full object-cover"
+        :style="{ opacity: String((item.bg_opacity ?? 30) / 100) }"
+      />
       <img
+        v-else-if="item.bg_image"
         :src="item.bg_image"
         alt=""
         class="h-full w-full object-cover"
         :style="{ opacity: String((item.bg_opacity ?? 30) / 100) }"
       >
-      <!-- Fade the image toward the text edge so the hero copy stays readable -->
+      <!-- Fade the layer toward the text edge so the hero copy stays readable -->
       <div class="absolute inset-0 bg-linear-to-r from-default via-default/70 to-transparent" />
     </div>
     <div
