@@ -603,24 +603,14 @@
             "heading": "What people say about me",
             "quotes": [
               {
-                "quote": "Jacob built the analytics hub that finally put every channel in one place. What used to take me a morning of spreadsheet exports now takes thirty seconds.",
-                "name": "Sarah",
-                "role": "Marketing Team (placeholder)"
+                "quote": "Jacob is great to work with — friendly, kind, and willing to help his coworkers with a variety of problems. He is also an excellent meme partner.",
+                "name": "Zack",
+                "role": "Global Lead Designer, CMI"
               },
               {
-                "quote": "Every time we ask for a tool, it shows up a week later working better than we imagined. The batch contact upload alone saves us hours every week.",
-                "name": "Mark",
-                "role": "Contacts Team (placeholder)"
-              },
-              {
-                "quote": "He rebuilt our commenting system mid-flight with zero downtime — moderation went from a chore we dreaded to a two-minute job.",
-                "name": "Elise",
-                "role": "Editorial (placeholder)"
-              },
-              {
-                "quote": "The receipt scanner felt like magic the first time a receipt filled itself in. Our whole team actually uses it, which says everything.",
-                "name": "David",
-                "role": "Events Team (placeholder)"
+                "quote": "As an individual with startup experience for the past 7 years, I can say that Jacob is a great leader, communicator, and strong technical contributor. His determination to finish our project as we approached the last minute led to a successful presentation. Jake's can-do attitude and humility will be a great asset to any tech team. Strongly recommend.",
+                "name": "Clarence",
+                "role": "Fellow bootcamp graduate"
               }
             ],
             "bg_image": null,
