@@ -159,7 +159,14 @@ const collections = [
   {
     collection: 'block_about',
     meta: { hidden: true, group: 'pages', sort: 4, icon: 'person', note: 'About block', display_template: '{{heading}}' },
-    fields: [uuidPk, str('eyebrow', { width: 'half' }), str('heading', { width: 'half', required: true }), text('body', { note: 'Separate paragraphs with a blank line.' }), ...stylingFields(9)],
+    fields: [
+      uuidPk,
+      str('eyebrow', { width: 'half' }),
+      str('heading', { width: 'half', required: true }),
+      text('body', { note: 'Separate paragraphs with a blank line.' }),
+      { field: 'image', type: 'uuid', meta: { interface: 'file-image', special: ['file'], note: 'Optional — switches the section to two columns with the image on the right. Synced by cms:sync.' }, schema: {} },
+      ...stylingFields(9),
+    ],
   },
   {
     collection: 'block_projects',

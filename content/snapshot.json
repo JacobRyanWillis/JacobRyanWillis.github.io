@@ -561,7 +561,8 @@
             "body": "For nearly three years I've been the full-stack developer behind Creation.com and its surrounding platform: a Directus-based CRM spanning 7 international offices, a cross-channel analytics hub, an email delivery platform reaching 100K+ subscribers daily, and a growing set of AI-powered internal tools.\n\nI specialize in owning systems end-to-end — database design, API architecture, background sync pipelines, responsive frontends, and the CMS integrations that let non-technical teams run them.",
             "bg_image": null,
             "bg_color": "",
-            "bg_opacity": 25
+            "bg_opacity": 25,
+            "image": "/images/6e585c04-1d57-443b-9378-b5a613a96492.png"
           }
         },
         {
