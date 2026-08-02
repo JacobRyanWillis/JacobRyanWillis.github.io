@@ -35,15 +35,15 @@
       "sort": 3
     },
     {
-      "id": "0e000000-0000-4000-8000-000000000004",
-      "value": "7",
-      "label": "e-commerce stores feeding analytics",
-      "sort": 4
-    },
-    {
       "id": "0e000000-0000-4000-8000-000000000005",
       "value": "5",
       "label": "marketing channels synced nightly",
+      "sort": 4
+    },
+    {
+      "id": "0e000000-0000-4000-8000-000000000004",
+      "value": "7",
+      "label": "e-commerce stores feeding analytics",
       "sort": 5
     },
     {
