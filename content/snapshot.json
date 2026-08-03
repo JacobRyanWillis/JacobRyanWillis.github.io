@@ -515,7 +515,7 @@
                 "color": "primary",
                 "variant": "solid",
                 "size": "lg",
-                "target": null
+                "target": "_blank"
               },
               {
                 "label": "GitHub",

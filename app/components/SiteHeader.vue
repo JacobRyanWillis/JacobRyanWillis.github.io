@@ -111,6 +111,7 @@ const { enabled: xray, toggle: toggleXray } = useXray()
             <div class="flex flex-col gap-1">
               <UButton
                 :to="content?.settings.resume ?? undefined"
+                target="_blank"
                 icon="i-lucide-file-down"
                 variant="ghost"
                 color="neutral"

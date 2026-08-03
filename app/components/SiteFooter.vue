@@ -55,6 +55,7 @@ const year = new Date().getFullYear()
         />
         <UButton
           :to="content?.settings.resume"
+          target="_blank"
           icon="i-lucide-file-down"
           variant="ghost"
           color="neutral"
